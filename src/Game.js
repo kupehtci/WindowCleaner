@@ -17,9 +17,21 @@ canvas.height = screenHeight;
 document.body.appendChild(canvas);      //Create the canvas in the HTML document
 
 //___________________________________________________________________
-//EMPTY
+//CHECK IF IS CLICKING ON A WINDOW
 
+function isClickingOnWindow(event){
+	let x = event.offsetX;
+	let y = event.offsetY;
 
+	//check if is clicking on a window
+	for(var i = 0; i < windows.length; i++){
+		if(x > windows[i].x && x < windows[i].x + windows[i].width && y > windows[i].y && y < windows[i].y + windows[i].height){
+			return true;
+		}
+	}
+
+	addEventListener("click", isClickingOnWindow(event), false); 
+}
 //____________________________________________________________________
 //START - Load things the start of the game
 function Start(){
