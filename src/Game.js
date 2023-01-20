@@ -19,15 +19,21 @@ document.body.appendChild(canvas);      //Create the canvas in the HTML document
 //___________________________________________________________________
 //CHECK IF IS CLICKING ON A WINDOW
 
+/**
+ * Check if is clicking on a window and return the window that is clicked
+ * @param {Event} event 
+ * @returns window that is clicked
+ */
 function isClickingOnWindow(event){
-	let x = event.offsetX;
-	let y = event.offsetY;
+	let eX = event.offsetX;
+	let eY = event.offsetY;
 
 	//check if is clicking on a window
-	for(var i = 0; i < windows.length; i++){
-		if(x > windows[i].x && x < windows[i].x + windows[i].width && y > windows[i].y && y < windows[i].y + windows[i].height){
-			return true;
+	for(var i = 0; i < dirtArray.length; i++){
+		if(eX > dirtArray[i].x && eX < dirtArray[i].x + dirtArray[i].width && eY > dirtArray[i].y && eY < dirtArray[i].y + dirtArray[i].height){
+			return dirtArray[i];
 		}
+		return null; 
 	}
 
 	addEventListener("click", isClickingOnWindow(event), false); 

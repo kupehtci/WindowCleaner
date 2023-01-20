@@ -70,7 +70,7 @@ class Dirt{
      * Check the health of the dirt and change sprite depending on health
      */
     CheckDirtHealth(){
-        if(this.health > 0 && this.health < (this.maxHealth/this.numSprites * 1)){
+        if(this.health > 0 && this.heaglth < (this.maxHealth/this.numSprites * 1)){
             this.spriteIndex = 4; 
         }
         else if(this.health > (this.maxHealth/this.numSprites * 1) && this.health < (this.maxHealth/this.numSprites * 2)){
