@@ -1,7 +1,7 @@
 class Window{
-    constructor(){
-        this.x = 0;
-        this.y = 0;
+    constructor(x, y){
+        this.x = x;
+        this.y = y;
         this.width = 0;
         this.height = 0;
 
@@ -73,42 +73,48 @@ class Window{
 
     //____________________________________________________________________
     //RENDER THE WINDOW
-    render(){
+    Render(){
         if(this.imageReady){
             ctx.drawImage(this.sprite[this.spriteIndex], this.x, this.y, this.width, this.height);
         }
     }
     
     Update(){
-        CheckDirtnessLevel(); 
+        // CheckDirtnessLevel();
+        this.spriteIndex = 0; 
     }
 
 
-    CheckDirtnessLevel(){
-        let numStates = this.stateMax + 1;
-        let state = this.state;
-        let dirtness = this.dirtness;
-
-        if(dirtness <= 20){
-            this.spriteIndex = 0;
-        }
-        else if(dirtness > 20 && dirtness <= 40){
-            this.spriteIndex = 1;
-        }
-        else if(dirtness > 40 && dirtness <= 60){
-            this.spriteIndex = 2;
-        }
-        else if(dirtness > 60 && dirtness <= 80){
-            this.spriteIndex = 3;
-        }
-        else if(dirtness > 80 && dirtness <= 100){
-            this.spriteIndex = 4;
-        }
-        
-    }
+    
+    // }
 
     /**Mess the window setting the dirness into the max value again */
     MessWindow(){
         this.dirtness = 100; 
     }
+
+
+    //DEPRECATED METHODS
+
+    // CheckDirtnessLevel(){
+    //     let numStates = this.stateMax + 1;
+    //     let state = this.state;
+    //     let dirtness = this.dirtness;
+
+    //     if(dirtness <= 20){
+    //         this.spriteIndex = 0;
+    //     }
+    //     else if(dirtness > 20 && dirtness <= 40){
+    //         this.spriteIndex = 1;
+    //     }
+    //     else if(dirtness > 40 && dirtness <= 60){
+    //         this.spriteIndex = 2;
+    //     }
+    //     else if(dirtness > 60 && dirtness <= 80){
+    //         this.spriteIndex = 3;
+    //     }
+    //     else if(dirtness > 80 && dirtness <= 100){
+    //         this.spriteIndex = 4;
+    //     }
+        
 }

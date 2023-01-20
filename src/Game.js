@@ -3,8 +3,8 @@
 
 var canvas; 
 var ctx; 
-var screenWidth = 640; 
-var screenHeight = 500; 
+var screenWidth = 1080; 
+var screenHeight = 720; 
 
 //____________________________________________________________________
 //CREATE CANVAS IN SCREEN
@@ -21,7 +21,7 @@ document.body.appendChild(canvas);      //Create the canvas in the HTML document
 
 /**
  * Check if is clicking on a window and return the window that is clicked
- * @param {Event} event 
+ * @param {Event} event Event of the click from addEventListener(); 
  * @returns window that is clicked
  */
 function isClickingOnWindow(event){
@@ -52,7 +52,7 @@ function Reset(){
 //____________________________________________________________________
 //RESTART THE GAME
 function Restart(){
-
+	console.log("Restart Game");
 } 
 
 //____________________________________________________________________
@@ -61,9 +61,13 @@ function Render(){
 	//Render background
 	ctx.fillStyle = "rgb(200, 200, 200)";
 	ctx.fillRect(0, 0, screenWidth, screenHeight);
+	
 	//Render the windows
+	for(var i = 0; i < windows.length; i++){
+		windows[i].Render();
+	}
 
-	//Render the cleaner
+	//Render the cleanerd
 
 	//Render the score
 
@@ -77,6 +81,17 @@ function Render(){
 
 function Update(keysDownArray, modifier){
 	
+	//Update the cleaner
+
+	//Update the windows
+	for(var i = 0; i < windows.length; i++){
+		windows[i].Update();
+	}
+	
+	//Update the dirt
+	for(var i = 0; i < dirts.length; i++){
+		dirts[i].Update();
+	}
 }
 
 
@@ -114,6 +129,15 @@ requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame
 //TIME VARS
 var then = Date.now(); 
 var tick = 0; 
+
+//INSTANCIATION 
+
+
+windows = [];
+windows[0] = new Window(20,20);
+
+dirts = []; 
+dirts[0] = new Dirt(20, 20, 120,120);
 
 //MAIN GAME LOOP
 Reset(); 
