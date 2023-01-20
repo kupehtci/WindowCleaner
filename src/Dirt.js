@@ -1,59 +1,65 @@
 class Dirt{
-    constructor(x, y, width, height){
+    /**
+     * Default constructor of Dirt
+     * @param {float} x Position x to draw the dirt
+     * @param {float} y Position y to draw the dirt
+     * @param {int} typeOfDirt Integer from 1 to 5 to choose the stain is going to be used
+     */
+    constructor(x, y, typeOfDirt){
         //Position and size
         this.x = x;
         this.y = y;
-        this.width = width;
-        this.height = height;
+        this.width = 0;
+        this.height = 0;
     
         //Image vars
         this.imageReady = false;
-        this.spriteIndex = 0;
-        this.numSprites = 5;
-        this.sprite = [this.numSprites];
+        this.sprite = null;
 
 
         
-        var image1 = new Image();
-        image1.onload = () => {
-            this.sprite[0] = image1;
+        var image = new Image();
+        image.onload = () => {
+            this.sprite = image;
             this.imageReady = true;
+
+            // this.width = image.width;
+            // this.height = image.height;
         }
-
-        // let image2 = new Image();
-        // image2.onload = () => {
-        //     this.sprite[1] = image2;
-        // }
-        
-        // let image3 = new Image();
-        // image3.onload = () => {
-        //     this.sprite[2] = image3;
-        // }
-        
-        // let image4 = new Image();
-        // image4.onload = () => {
-        //     this.sprite[3] = image4;
-        // }
-
-        // let image5 = new Image();
-        // image5.onload = () => {
-        //     this.sprite[4] = image5;
-        // }
     
-        //Image sources
-        image1.src = "./assets/dirt_0.png";
-        // image2.src = "./assets/dirt_1.png";
-        // image3.src = "./assets/dirt_2.png";
-        // image4.src = "./assets/dirt_3.png";
-        // image5.src = "./assets/dirt_4.png";
+        //Image sources switch depending of the type of dirt
+        switch(typeOfDirt){
+            case 1:
+                image.src = "./assets/dirt1.png";
+                break;
+            case 2:
+                image.src = "./assets/dirt2.png";
+                break;
+            case 3:
+                image.src = "./assets/dirt3.png";
+                break;
+            case 4:
+                image.src = "./assets/dirt4.png";
+                break;
+            case 5:
+                image.src = "./assets/dirt5.png";
+                break;
+            case 6: 
+                image.src = "./assets/dirt6.png";
+            default:
+                image.src = "./assets/dirt1.png";
+                break; 
+        }
 
         //Cleaning vars
         this.maxHealth = 1000;
         this.health =  this.maxHealth; 
-
         this.active = true;
     }
 
+    /**
+     * Render the dirt if the image has been loaded and the object is still active
+     */
     Render(){
         if(this.imageReady && this.active){
 
@@ -61,14 +67,10 @@ class Dirt{
             ctx.globalAlpha = this.health/this.maxHealth;
 
             //Draws the current sprite
-            ctx.drawImage(this.sprite[this.spriteIndex], this.x, this.y, this.width, this.height);
+            ctx.drawImage(this.sprite, this.x, this.y, this.width, this.height);
 
             //Resets the alpha
             ctx.globalAlpha = 1;
-
-
-            //Checks if entered this rutine
-            console.log("Rendering dirt with sprite index: " + this.spriteIndex); 
         }
     }
 
@@ -81,31 +83,20 @@ class Dirt{
         // if(this.health <= 0){
         //     this.Destroy();
         // }
-
-        console.log("Updating dirt");
     }
 
     /**
-     * Check the health of the dirt and change sprite depending on health
+     * Clean the stain by reducing their health in the specified percentaje
+     * @param {number} percentaje between 0 to 1 to reduce the health of the stain 
      */
-    CheckDirtHealth(){
-        if(this.health > 0 && this.heaglth < (this.maxHealth/this.numSprites * 1)){
-            this.spriteIndex = 4; 
-        }
-        else if(this.health > (this.maxHealth/this.numSprites * 1) && this.health < (this.maxHealth/this.numSprites * 2)){
-            this.spriteIndex = 3; 
-        }
-        else if(this.health > (this.maxHealth/this.numSprites * 2) && this.health < (this.maxHealth/this.numSprites * 3)){
-            this.spriteIndex = 2; 
-        }
-        else if(this.health > (this.maxHealth/this.numSprites * 3) && this.health < (this.maxHealth/this.numSprites * 4)){
-            this.spriteIndex = 1; 
-        }
-        else if(this.health > (this.maxHealth/this.numSprites * 4) && this.health < (this.maxHealth/this.numSprites * 5)){
-            this.spriteIndex = 0; 
-        }
+    Clean(percentaje){
+        this.health -= percentaje * this.maxHealth;
     }
+    
     Destroy(){
         console.log("Dirt destroyed"); 
     }
 }
+
+
+

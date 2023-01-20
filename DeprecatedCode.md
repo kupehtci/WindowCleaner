@@ -80,3 +80,52 @@ Check the health of the window to check with sprite to drawn. Sustyituted with t
 //         this.spriteIndex = 4;
 //     }
     
+
+
+
+
+//DIRT CLASS DEPRECATED METHOD
+To inplement different sprites for the stains and dirtness
+
+// let image2 = new Image();
+// image2.onload = () => {
+//     this.sprite[1] = image2;
+// }
+
+// let image3 = new Image();
+// image3.onload = () => {
+//     this.sprite[2] = image3;
+// }
+
+// let image4 = new Image();
+// image4.onload = () => {
+//     this.sprite[3] = image4;
+// }
+
+// let image5 = new Image();
+// image5.onload = () => {
+//     this.sprite[4] = image5;
+// }
+
+//DIRT CLASS DEPRECATED TO CHECK HEALTH AND CHANGE THE SPRITE DEPENDING ON THE HEALTH
+
+/**
+* Check the health of the dirt and change sprite depending on health
+*/
+CheckDirtHealth(){
+if(this.health > 0 && this.heaglth < (this.maxHealth/this.numSprites * 1)){
+    this.spriteIndex = 4; 
+}
+else if(this.health > (this.maxHealth/this.numSprites * 1) && this.health < (this.maxHealth/this.numSprites * 2)){
+    this.spriteIndex = 3; 
+}
+else if(this.health > (this.maxHealth/this.numSprites * 2) && this.health < (this.maxHealth/this.numSprites * 3)){
+    this.spriteIndex = 2; 
+}
+else if(this.health > (this.maxHealth/this.numSprites * 3) && this.health < (this.maxHealth/this.numSprites * 4)){
+    this.spriteIndex = 1; 
+}
+else if(this.health > (this.maxHealth/this.numSprites * 4) && this.health < (this.maxHealth/this.numSprites * 5)){
+    this.spriteIndex = 0; 
+}
+}

@@ -1,3 +1,6 @@
+
+//IÑAKI TE DEJO ESTA CLASE PARA EL OBJETO CLEANER. Te la he dejado ya agregada al index.html pero no instanciado en el main 
+
 class Cleaner{
     constructor(){
         this.x = 0; 
@@ -18,6 +21,7 @@ class Cleaner{
             this.sprite = image;        //Assign the image to the var sprite and set ready
             this.imageReady = true;
         }
+        image.src = "./assets/windowCleaner.png";
     }
 
     Render(){

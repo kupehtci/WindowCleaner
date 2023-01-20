@@ -16,28 +16,44 @@ canvas.height = screenHeight;
 
 document.body.appendChild(canvas);      //Create the canvas in the HTML document
 
+//____________________________________________________________________
+//INSTANTIATE THE GAME OBJECTS 
+
+windows = [];
+windows[0] = new Window(20,20);
+
 //___________________________________________________________________
 //CHECK IF IS CLICKING ON A WINDOW
 
-/**
- * Check if is clicking on a window and return the window that is clicked
- * @param {Event} event Event of the click from addEventListener(); 
- * @returns window that is clicked
- */
-function isClickingOnWindow(event){
-	let eX = event.offsetX;
-	let eY = event.offsetY;
+addEventListener("click",function(e){
+		let eX = e.offsetX;
+		let eY = e.offsetY;
 
-	//check if is clicking on a window
-	for(var i = 0; i < dirtArray.length; i++){
-		if(eX > dirtArray[i].x && eX < dirtArray[i].x + dirtArray[i].width && eY > dirtArray[i].y && eY < dirtArray[i].y + dirtArray[i].height){
-			return dirtArray[i];
+		console.log("Check if window has been clicked"); 
+
+		//check if is clicking on a window
+		for(var i = 0; i < windows.length; i++){
+			// if(eX > windows[i].x && eX < (windows[i].x + windows[i].width) && eY > windows[i].y && eY < (windows[i].y + windows[i].height)){
+			// 	console.log("Window Clicked");
+			// 	return windows[i];
+			// }
+
+			//for each of the dirts from a window check if is clicking on it
+			for(var j = 0; j < windows[i].dirts.length; j++){
+				if(windows[i].dirts[j] != null){
+					if(eX > windows[i].dirts[j].x && eX < (windows[i].dirts[j].x + windows[i].dirts[j].width) && eY > windows[i].dirts[j].y && eY < (windows[i].dirts[j].y + windows[i].dirts[j].height)){
+						console.log("Dirt Clicked");w
+
+						window[i].dirts[j].Clean(0.1);
+						return windows[i].dirts[j];
+					}
+				}
+			}
 		}
-		return null; 
+		return null;  
 	}
+	, false); //false -> for disable options of the event
 
-	addEventListener("click", isClickingOnWindow(event), false); 
-}
 //____________________________________________________________________
 //START - Load things the start of the game
 function Start(){
@@ -74,9 +90,9 @@ function Render(){
 	//Render the time
 
 	//Render the dirt
-	for(var i = 0; i < dirts.length; i++){
-		dirts[i].Render();
-	}
+	// for(var i = 0; i < dirts.length; i++){
+	// 	dirts[i].Render();
+	// }
 }
 
 function Update(keysDownArray, modifier){
@@ -88,10 +104,6 @@ function Update(keysDownArray, modifier){
 		windows[i].Update();
 	}
 	
-	//Update the dirt
-	for(var i = 0; i < dirts.length; i++){
-		dirts[i].Update();
-	}
 }
 
 
@@ -130,14 +142,7 @@ requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame
 var then = Date.now(); 
 var tick = 0; 
 
-//INSTANCIATION 
 
-
-windows = [];
-windows[0] = new Window(20,20);
-
-dirts = []; 
-dirts[0] = new Dirt(20, 20, 120,120);
 
 //MAIN GAME LOOP
 Reset(); 
