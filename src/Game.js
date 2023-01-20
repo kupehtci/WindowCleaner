@@ -58,7 +58,21 @@ function Restart(){
 //____________________________________________________________________
 //RENDER THE GAME
 function Render(){
-	
+	//Render background
+	ctx.fillStyle = "rgb(200, 200, 200)";
+	ctx.fillRect(0, 0, screenWidth, screenHeight);
+	//Render the windows
+
+	//Render the cleaner
+
+	//Render the score
+
+	//Render the time
+
+	//Render the dirt
+	for(var i = 0; i < dirts.length; i++){
+		dirts[i].Render();
+	}
 }
 
 function Update(keysDownArray, modifier){

@@ -52,14 +52,18 @@ class Dirt{
 
     Render(){
         if(this.imageReady){
+            //Sets the alpha depending on the health remaining
+            ctx.globalAlpha = this.health/this.maxHealth;
+            //Draws the current sprite
             ctx.drawImage(this.sprite[this.spriteIndex], this.x, this.y, this.width, this.height);
         }
     }
 
     Update(){
         //Check dirt health
-        this.CheckDirtHealth();
-
+        //this.CheckDirtHealth();
+        this.spriteIndex = 0; 
+        
         //Destroy dirt if health is 0
         if(this.health <= 0){
             this.Destroy();
