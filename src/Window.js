@@ -91,13 +91,17 @@ class Window{
 
         if(dirtness <= 20){
             this.spriteIndex = 0;
-        }else if(dirtness > 20 && dirtness <= 40){
+        }
+        else if(dirtness > 20 && dirtness <= 40){
             this.spriteIndex = 1;
-        }else if(dirtness > 40 && dirtness <= 60){
+        }
+        else if(dirtness > 40 && dirtness <= 60){
             this.spriteIndex = 2;
-        }else if(dirtness > 60 && dirtness <= 80){
+        }
+        else if(dirtness > 60 && dirtness <= 80){
             this.spriteIndex = 3;
-        }else if(dirtness > 80 && dirtness <= 100){
+        }
+        else if(dirtness > 80 && dirtness <= 100){
             this.spriteIndex = 4;
         }
         
