@@ -4,6 +4,16 @@
         <title>Window Cleaner</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- STAY PIXELATED FONT FAMILY -->
+        <!-- <link rel="stylesheet" href="./Fonts/StayPixelRegular.ttf"> -->
+
+        <style>
+            @font-face {
+                font-family: 'StayPixelRegular';
+                src: url(/Fonts/StayPixelRegular.ttf) format('truetype');
+            }
+        </style>
     </head>
     <body>
         <!-- Global use functions
@@ -11,12 +21,23 @@
         <script src = "src/GlobalFunctions.js"></script>
 
         <!-- Classes scripts for the game -->
-        <script src = "src/Hud.js">     </script>
+        <script src = "src/Manager.js">     </script>
         <script src = "src/Dirt.js" >   </script>       
         <script src = "src/Window.js">  </script>
         <script src = "src/Cleaner.js"> </script>
 
         <!-- Main Game Loop script -->
         <script src = "src/Game.js">    </script>
+
+        <!-- Body style settings-->
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                background-color: #000000;
+                overflow: hidden;
+                font-family: 'StayPixelRegular', Courier, monospace;
+            }
+        </style>
     </body>
 </html>

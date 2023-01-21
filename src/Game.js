@@ -34,7 +34,7 @@ var windows = [];
 windows[0] = new Window(20,20);
 windows[1] = new Window(20,220);
 
-var hud = new Hud();
+var manager = new Manager();
 
 
 //___________________________________________________________________
@@ -110,8 +110,8 @@ function Render(){
 
 	//Render the cleanerd
 
-	//Render the score
-	hud.Render();
+	//Render the score and buy options
+	manager.Render();
 	//Render the time
 
 	//Render the dirt
@@ -130,7 +130,7 @@ function Update(keysDownArray, modifier){
 	}
 
 	//Update the Hud
-	hud.Update(); 
+	manager.Update(); 
 	
 }
 
