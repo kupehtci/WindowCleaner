@@ -9,11 +9,7 @@ var screenHeight = 720;
 //____________________________________________________________________
 //MAIN GAME VARS
 
-/**
- * Time in miliseconds to respawn a dirt in the window
- * @type {number} Time in miliseconds to respawn a dirt in the window
- */
-var timeToRespawnDirt = 2000; 
+
 
 
 
@@ -38,8 +34,7 @@ var manager = new Manager();
 
 
 //___________________________________________________________________
-//CHECK IF IS CLICKING ON A WINDOW
-
+//#region CHECK IF IS CLICKING ON A WINDOW
 addEventListener("click",function(e){
 		let eX = e.offsetX;
 		let eY = e.offsetY;
@@ -51,33 +46,58 @@ addEventListener("click",function(e){
 			
 			//for each of the dirts from a window check if is clicking on it
 			for(var j = 0; j < windows[i].dirts.length; j++){
-				if(windows[i].dirts[j] != null){
-					if(eX > windows[i].dirts[j].x && eX < (windows[i].dirts[j].x + windows[i].dirts[j].width) && eY > windows[i].dirts[j].y && eY < (windows[i].dirts[j].y + windows[i].dirts[j].height)){
-						
-						let clickedDirt = windows[i]?.dirts[j];
-						
-						if(clickedDirt.IsActive()){
-							if(clickedDirt.Clean(0.25)){
-								windows[i].dirtsRemaining--;
 
-								if(windows[i].dirtsRemaining <= 0){
-									setTimeout(function(window){
-										window.CreateDirtness(window.numStainsPerWindow);
-									}, timeToRespawnDirt, windows[i]);
-								}
+				let clickedDirt = windows[i]?.dirts[j];
 
-								console.log("Dirt Cleaned");
+				if(eX > clickedDirt?.x && eX < (clickedDirt?.x + clickedDirt?.width) && eY > clickedDirt?.y && eY < (clickedDirt?.y + clickedDirt?.height)){
+					
+					
+					
+					if(clickedDirt.IsActive()){
+						if(clickedDirt.Clean(0.25)){
+							windows[i].dirtsRemaining--;
+							manager.EarnMoney()
+
+							if(windows[i].dirtsRemaining <= 0){
+								setTimeout(function(window){
+									window.CreateDirtness(window.numStainsPerWindow);
+								}, 
+								manager.timeToRespawnDirt,
+									windows[i]);
 							}
-							console.log("Dirt Clicked");
+
+							console.log("Dirt Cleaned");
 						}
-						return windows?.[i]?.dirts[j];
+						console.log("Dirt Clicked");
 					}
+					return windows?.[i]?.dirts[j];
 				}
+				
 			}
 		}
 		return null;  
 	}
 	, false); //false -> for disable options of the event
+//#endregion
+
+//#region CHECK IF IS CLICKING ON A BUY OPTION
+addEventListener("click",function(e){
+	let eX = e.offsetX;
+	let eY = e.offsetY;
+
+	console.log("Check if buy option has been clicked");
+	
+	//check if is clicking on a buy option
+	for(var i = 0; i < manager.optionBoxes.length; i++){
+
+		let clickedOption = manager.optionBoxes[i];
+		if(clickedOption?.IsClicked(eX, eY)){
+			console.log("Option Clicked");
+		}
+	}
+}
+, false); //false -> for disable options of the event
+//#endregion
 
 //____________________________________________________________________
 //START - Load things the start of the game
@@ -145,6 +165,28 @@ addEventListener("keyup",function(e){
 	delete keysDown[e.keyCode];}, 
 	false);  
 
+//Clears the data saved in the local storage by clicking R
+document.addEventListener("keydown", (e) => {
+    if(e.key == "r"){
+        localStorage.clear(); 
+        console.log("Local Storage cleared");
+    }
+}, false); 
+
+document.addEventListener("keydown", (e) => {
+    if(e.key == "s"){
+        console.log("Saving money to local storage"); 
+        localStorage.setItem("money", manager.money); 
+    }
+}, false); 
+
+document.addEventListener("keydown", (e) => {
+    if(e.key == "l"){
+        console.log("Loading money from local storage"); 
+        manager.money = parseInt(localStorage.getItem("money"));
+    }
+}, false);
+
 //____________________________________________________________________
 // THE MAIN GAME LOOP
 var main = function () {
@@ -177,3 +219,5 @@ Reset();
 Start(); 
 
 main();		//Start the main loop of the game 
+
+

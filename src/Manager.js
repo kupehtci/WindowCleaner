@@ -3,21 +3,44 @@
 class Manager{
     constructor(){
 
-        this.money = 0;
+        // if(localStorage.getItem("money") != null){
+        //     this.money = parseInt(localStorage.getItem("money"));
+        // }else{
+        //     this.money = 0;
+        // }
+        this.money = 0; 
         this.moneyText = "Money: " + this.money;
         this.totalMoneyEarned = 0;        
+
+
+        /**
+         * Money earned for each dirt cleaned
+         * @type {number} Money earned for each dirt cleaned
+         */
+        this.moneyEarn = 5; 
+
+        //TIME CONTROL VARS 
+        /**
+         * Time in miliseconds to respawn a dirt in the window
+         * @type {number} Time in miliseconds to respawn a dirt in the window
+         */
+        this.timeToRespawnDirt = 2000;
+        
+        
+        //OPTION BOXES
+        this.optionBoxes = [];
     }
 
     Render(){
         //Render the money text
-        ctx.fillStyle = "black";
-        ctx.font = "30px Arial";
-        ctx.fillText(this.moneyText, canvas.wdith - 100, 50);
+        ctx.fillStyle = "white";
+        ctx.font = "20px Arial";
+        ctx.fillText(this.moneyText, canvas.width - 300, 50);
 
         //Render the total money earned
-        ctx.fillStyle = "black";
-        ctx.font = "20px StayPixelRegular";
-        ctx.fillText("Total Money Earned: " + this.totalMoneyEarned, canvas.width - 100, 100);
+        ctx.fillStyle = "white";
+        ctx.font = "20px Arial";
+        ctx.fillText("Total Money Earned: " + this.totalMoneyEarned, canvas.width - 300, 100);
     }
 
     Update(){
@@ -27,7 +50,8 @@ class Manager{
     }
 
     EarnMoney(amount){
-        this.money += amount;
-        this.totalMoneyEarned += amount;
+        this.money += this.moneyEarn; 
+        this.totalMoneyEarned += this.moneyEarn;
     }
 }
+
