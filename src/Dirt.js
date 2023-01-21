@@ -75,26 +75,57 @@ class Dirt{
     }
 
     Update(){
-        //Check dirt health
-        //this.CheckDirtHealth();
-        this.spriteIndex = 0; 
-        
-        // //Destroy dirt if health is 0
-        // if(this.health <= 0){
-        //     this.Destroy();
-        // }
+
     }
 
     /**
      * Clean the stain by reducing their health in the specified percentaje
+     * Also check i fhas health left and destroy the stain if not
      * @param {number} percentaje between 0 to 1 to reduce the health of the stain 
+     * @returns {boolean} True if the dirt was destroyed by the cleaning
      */
     Clean(percentaje){
         this.health -= percentaje * this.maxHealth;
+        this.health = Clamp(this.health, 0, this.maxHealth);
+
+        if(this.health <= 0){
+            this.Destroy();
+            return true; 
+        }
+        return false; 
     }
     
+    /**
+     * Destroy the dirt and set it as inactive
+     * @returns {boolean} True if the dirt was destroyed
+     * @returns {boolean} False if the dirt was already inactive
+     */
     Destroy(){
-        console.log("Dirt destroyed"); 
+        if(!this.active){ return false; }
+        this.active = false;
+        
+        //Dealocate the image out of the window to avoid interferences when cleaning other stains
+        this.SetPosition(-1000, -1000);
+
+        return true; 
+    }
+
+    /**
+     * Sets the position of the dirt
+     * @param {number} x Position x to draw the dirt
+     * @param {number} y Position y to draw the dirt
+     */
+    SetPosition(x, y){
+        this.x = x;
+        this.y = y;
+    }
+
+    /**
+     * CHeck if the dirs is still active
+     * @returns {boolean} True if the dirt is still active
+     */
+    IsActive(){
+        return this.active;
     }
 }
 

@@ -7,6 +7,17 @@ var screenWidth = 1080;
 var screenHeight = 720; 
 
 //____________________________________________________________________
+//MAIN GAME VARS
+
+/**
+ * Time in miliseconds to respawn a dirt in the window
+ * @type {number} Time in miliseconds to respawn a dirt in the window
+ */
+var timeToRespawnDirt = 2000; 
+
+
+
+//____________________________________________________________________
 //CREATE CANVAS IN SCREEN
 canvas = document.createElement("canvas"); 
 ctx = canvas.getContext("2d"); 
@@ -33,19 +44,29 @@ addEventListener("click",function(e){
 
 		//check if is clicking on a window
 		for(var i = 0; i < windows.length; i++){
-			// if(eX > windows[i].x && eX < (windows[i].x + windows[i].width) && eY > windows[i].y && eY < (windows[i].y + windows[i].height)){
-			// 	console.log("Window Clicked");
-			// 	return windows[i];
-			// }
-
+			
 			//for each of the dirts from a window check if is clicking on it
 			for(var j = 0; j < windows[i].dirts.length; j++){
 				if(windows[i].dirts[j] != null){
 					if(eX > windows[i].dirts[j].x && eX < (windows[i].dirts[j].x + windows[i].dirts[j].width) && eY > windows[i].dirts[j].y && eY < (windows[i].dirts[j].y + windows[i].dirts[j].height)){
-						console.log("Dirt Clicked");w
+						
+						let clickedDirt = windows[i]?.dirts[j];
+						
+						if(clickedDirt.IsActive()){
+							if(clickedDirt.Clean(0.25)){
+								windows[i].dirtsRemaining--;
 
-						window[i].dirts[j].Clean(0.1);
-						return windows[i].dirts[j];
+								if(windows[i].dirtsRemaining <= 0){
+									setTimeout(function(window){
+										window.CreateDirtness(window.numStainsPerWindow);
+									}, 5000, windows[i]);
+								}
+
+								console.log("Dirt Cleaned");
+							}
+							console.log("Dirt Clicked");
+						}
+						return windows?.[i]?.dirts[j];
 					}
 				}
 			}

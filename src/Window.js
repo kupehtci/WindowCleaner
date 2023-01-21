@@ -20,8 +20,13 @@ class Window{
         image.src = "./assets/window.png";
 
         //VARS FOR DIRTNESS AND STAIN SPAWN IN THE WINDOW
-        this.numStainsPerWindow = 10;
+
+
+        this.numStainsPerWindow = 3; 
+        this.dirtsRemaining = 0; 
+
         this.dirts = [this.numStainsPerWindow]; 
+
         for(let i = 0; i < this.numStainsPerWindow; i++){
             this.dirts[i] = null;
         }
@@ -45,26 +50,36 @@ class Window{
     }
     
     Update(){
-        // CheckDirtnessLevel();
-        this.spriteIndex = 0; 
+        
+        //Update all the stains
+        for(let i = 0; i < this.dirts.length; i++){
+            this.dirts?.[i]?.Update();
+        }z  
+
+        //If a stain is not active so has been cleaned, create a new one
+        if(this.dirts.length < this.numStainsPerWindow){
+            this.CreateDirtness(1);
+        }
     }
 
     //____________________________________________________________________
     //OWN METHODS
 
     /**
-     * Create all the stains in the window
-     * @param {number} numberOfStains
+     * Create the number of stains specidied in the window
+     * @param {number} numberOfStains Number of the stains to create in the window
      */
     CreateDirtness(numberOfStains){
+        //Define initial values for clamping the width and height to avoid the stains to be too big or too small
         let maxWidth = 90; 
         let maxHeight = 90;
 
+        //Create the stains in a random place and random size inside the window
         for(var i = 0; i < numberOfStains; i++){
             let x = this.x + Math.floor(Math.random() * maxWidth);
             let y = this.y + Math.floor(Math.random() * maxHeight);
-            let width = Math.floor(Math.random() * 20) + 10;
-            let height = Math.floor(Math.random() * 20) + 10;
+            let width = Math.floor(Math.random() * 10) + 10;
+            let height = Math.floor(Math.random() * 10) + 10;
             
             width = Clamp(width, 10, maxWidth) * 3;
             height = Clamp(height, 10, maxHeight) * 3;
@@ -78,6 +93,8 @@ class Window{
             this.dirts.push(l_dirt);
             console.log("Has create a dirt in the window x: " + x + " y: " + y + " width: " + width + " height: " + height)
         }
+
+        this.dirtsRemaining = numberOfStains; 
     }
 
 }
