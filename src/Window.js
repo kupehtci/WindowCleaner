@@ -54,7 +54,7 @@ class Window{
         //Update all the stains
         for(let i = 0; i < this.dirts.length; i++){
             this.dirts?.[i]?.Update();
-        }z  
+        }
 
         //If a stain is not active so has been cleaned, create a new one
         if(this.dirts.length < this.numStainsPerWindow){

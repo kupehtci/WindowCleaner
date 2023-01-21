@@ -30,8 +30,12 @@ document.body.appendChild(canvas);      //Create the canvas in the HTML document
 //____________________________________________________________________
 //INSTANTIATE THE GAME OBJECTS 
 
-windows = [];
+var windows = [];
 windows[0] = new Window(20,20);
+windows[1] = new Window(20,220);
+
+var hud = new Hud();
+
 
 //___________________________________________________________________
 //CHECK IF IS CLICKING ON A WINDOW
@@ -59,7 +63,7 @@ addEventListener("click",function(e){
 								if(windows[i].dirtsRemaining <= 0){
 									setTimeout(function(window){
 										window.CreateDirtness(window.numStainsPerWindow);
-									}, 5000, windows[i]);
+									}, timeToRespawnDirt, windows[i]);
 								}
 
 								console.log("Dirt Cleaned");
@@ -107,7 +111,7 @@ function Render(){
 	//Render the cleanerd
 
 	//Render the score
-
+	hud.Render();
 	//Render the time
 
 	//Render the dirt
@@ -124,6 +128,9 @@ function Update(keysDownArray, modifier){
 	for(var i = 0; i < windows.length; i++){
 		windows[i].Update();
 	}
+
+	//Update the Hud
+	hud.Update(); 
 	
 }
 
