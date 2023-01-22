@@ -19,6 +19,7 @@ const spray1 = new Audio("sounds/WaterSpray1.wav");
 const spray2 = new Audio("sounds/WaterSpray2.wav");
 const spray3 = new Audio("sounds/WaterSpray3.wav");
 const spray4 = new Audio("sounds/WaterSpray4.wav");
+const noMoney = new Audio("sounds/NotEnoughMoney.wav");
 //#endregion
 
 //____________________________________________________________________
@@ -131,7 +132,7 @@ addEventListener("click",function(e){
 					}
 					
 					if(clickedDirt.IsActive()){
-						if(clickedDirt.Clean(2)){
+						if(clickedDirt.Clean(0.25)){
 							windows[i].dirtsRemaining--;
 							manager.EarnMoney()
 							cleanedDirt.currentTime = 0;
@@ -170,17 +171,50 @@ addEventListener("click",function(e){
 
 		let clickedOption = manager.optionBoxes[i];
 		if(clickedOption?.IsClicked(eX, eY)){
+			if(manager.money >= clickedOption?.price){
+			manager.money -= clickedOption?.price;
+			//play sound
 			moneySpent.currentTime = 0;
 			moneySpent.play();
+			manager.optionBoxes[i].level += 1;
+			manager.optionBoxes[i].price = Math.floor(manager.optionBoxes[i].price * manager.optionBoxes[i].priceMultiplier);
 			console.log("Option Clicked");
 			switch(clickedOption?.integerOption){
 				case 0: 
-					//Behaviour of box 0
+					//Behaviour of box 1
+					//Auto clicker Row 1
+					//manager.BuyAutoclicker();
 					break; 
 				case 1: 
+					//Behaviour of box 2
+					//Auto clicker Row 2
 					break; 
-					
+				case 2:
+					//Behaviour of box 3
+					//Auto clicker Row 3
+					break;
+				case 3:
+					//Behaviour of box 4
+					//Auto clicker Column 1
+					break;
+				case 4:
+					//Behaviour of box 5
+					//Auto clicker Column 2
+					break;
+				case 5:
+					//Behaviour of box 6 
+					//Auto clicker Column 3
+					break;
+				case 6:
+					//Behaviour of box 7
+					//Spray Power
+					break;
 			}
+		}
+		else{
+			noMoney.currentTime = 0;
+			noMoney.play();
+		}
 		}
 	}
 }

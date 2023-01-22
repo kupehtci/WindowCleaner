@@ -5,7 +5,7 @@ class ClickableBox{
         this.x = x;
         this.y = y;
         this.width = width;
-        this.height = height;
+        this.height = height*1.5;
 
         let image = new Image();
         this.imageReady = false; 
@@ -16,6 +16,9 @@ class ClickableBox{
         }
 
         this.integerOption = 0; 
+        this.price = 50;
+        this.priceMultiplier = 1.5;
+        this.level = 1;
     }
 
     /**
