@@ -11,8 +11,14 @@ var screenHeight = 720;
 
 
 
-
-
+//____________________________________________________________________
+//SOUNDS
+const cleanedDirt = new Audio("sounds/WindowWipe.wav");
+const moneySpent = new Audio("sounds/Purchase.wav");
+const spray1 = new Audio("sounds/WaterSpray1.wav");
+const spray2 = new Audio("sounds/WaterSpray2.wav");
+const spray3 = new Audio("sounds/WaterSpray3.wav");
+const spray4 = new Audio("sounds/WaterSpray4.wav");
 //____________________________________________________________________
 //CREATE CANVAS IN SCREEN
 canvas = document.createElement("canvas"); 
@@ -60,12 +66,33 @@ addEventListener("click",function(e){
 
 				if(eX > clickedDirt?.x && eX < (clickedDirt?.x + clickedDirt?.width) && eY > clickedDirt?.y && eY < (clickedDirt?.y + clickedDirt?.height)){
 					
-					
+					//crear un generador de numeros aleatorios del 1 al 4
+					let random = Math.floor(Math.random() * 4) + 1;
+					switch(random){
+						case 1:
+							spray1.currentTime = 0;
+							spray1.play();
+							break;
+						case 2:
+							spray2.currentTime = 0;
+							spray2.play();
+							break;
+						case 3:
+							spray3.currentTime = 0;
+							spray3.play();
+							break;
+						case 4:
+							spray4.currentTime = 0;
+							spray4.play();
+							break;
+					}
 					
 					if(clickedDirt.IsActive()){
 						if(clickedDirt.Clean(0.25)){
 							windows[i].dirtsRemaining--;
 							manager.EarnMoney()
+							cleanedDirt.currentTime = 0;
+							cleanedDirt.play();
 
 							if(windows[i].dirtsRemaining <= 0){
 								setTimeout(function(window){
@@ -101,6 +128,8 @@ addEventListener("click",function(e){
 
 		let clickedOption = manager.optionBoxes[i];
 		if(clickedOption?.IsClicked(eX, eY)){
+			moneySpent.currentTime = 0;
+			moneySpent.play();
 			console.log("Option Clicked");
 		}
 	}
