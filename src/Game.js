@@ -12,15 +12,17 @@ var screenHeight = 720;
 
 
 //____________________________________________________________________
-//SOUNDS
+//#region SOUNDS
 const cleanedDirt = new Audio("sounds/WindowWipe.wav");
 const moneySpent = new Audio("sounds/Purchase.wav");
 const spray1 = new Audio("sounds/WaterSpray1.wav");
 const spray2 = new Audio("sounds/WaterSpray2.wav");
 const spray3 = new Audio("sounds/WaterSpray3.wav");
 const spray4 = new Audio("sounds/WaterSpray4.wav");
+//#endregion
+
 //____________________________________________________________________
-//CREATE CANVAS IN SCREEN
+//#region CREATE CANVAS IN SCREEN
 canvas = document.createElement("canvas"); 
 ctx = canvas.getContext("2d"); 
 
@@ -28,6 +30,7 @@ canvas.width = screenWidth;
 canvas.height = screenHeight;
 
 document.body.appendChild(canvas);      //Create the canvas in the HTML document
+//#endregion
 
 //____________________________________________________________________
 //INSTANTIATE THE GAME OBJECTS 
@@ -37,6 +40,7 @@ windows[0] = new Window(20,20);
 windows[1] = new Window(20,220);
 
 var manager = new Manager();
+
 //___________________________________________________________________
 //#region CHECK MOUSE POSITION
 addEventListener("mousemove", function(event) {
@@ -47,6 +51,7 @@ addEventListener("mousemove", function(event) {
 	cleaner.x = mouseX + cleaner.width/2;
 	cleaner.y = mouseY;// - cleaner.height;
 });
+//#endregion
 
 //___________________________________________________________________
 //#region CHECK IF IS CLICKING ON A WINDOW
@@ -85,6 +90,10 @@ addEventListener("click",function(e){
 							spray4.currentTime = 0;
 							spray4.play();
 							break;
+						default: 
+							spray4.currentTime = 0;
+							spray4.play();
+							break;
 					}
 					
 					if(clickedDirt.IsActive()){
@@ -96,19 +105,18 @@ addEventListener("click",function(e){
 
 							if(windows[i].dirtsRemaining <= 0){
 								setTimeout(function(window){
-									window.CreateDirtness(window.numStainsPerWindow);
+									window.CreateDirtness();
 								}, 
 								manager.timeToRespawnDirt,
 									windows[i]);
 							}
 
-							console.log("Dirt Cleaned");
+							// console.log("Dirt Cleaned");
 						}
-						console.log("Dirt Clicked");
+						// console.log("Dirt Clicked");
 					}
 					return windows?.[i]?.dirts[j];
 				}
-				
 			}
 		}
 		return null;  

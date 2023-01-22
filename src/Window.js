@@ -22,7 +22,6 @@ class Window{
         //VARS FOR DIRTNESS AND STAIN SPAWN IN THE WINDOW
 
         // hacer random
-        this.numStainsPerWindow = 3; 
         this.dirtsRemaining = 0; 
 
         this.dirts = [this.numStainsPerWindow]; 
@@ -30,7 +29,7 @@ class Window{
         for(let i = 0; i < this.numStainsPerWindow; i++){
             this.dirts[i] = null;
         }
-        this.CreateDirtness(this.numStainsPerWindow);
+        this.CreateDirtness();
     }
 
     //____________________________________________________________________
@@ -57,9 +56,9 @@ class Window{
         }
 
         //If a stain is not active so has been cleaned, create a new one
-        if(this.dirts.length < this.numStainsPerWindow){
-            this.CreateDirtness(1);
-        }
+        // if(this.dirts.length < this.numStainsPerWindow){
+        //     this.CreateDirtness(1);
+        // }
     }
 
     //____________________________________________________________________
@@ -69,13 +68,16 @@ class Window{
      * Create the number of stains specidied in the window
      * @param {number} numberOfStains Number of the stains to create in the window
      */
-    CreateDirtness(numberOfStains){
+    CreateDirtness(){
         //Define initial values for clamping the width and height to avoid the stains to be too big or too small
         let maxWidth = 90; 
         let maxHeight = 90;
 
+        //Get a random number of stains to create in the window bw 1 and 6
+        let numStains = Math.floor(Math.random() * 5) + 1;
+
         //Create the stains in a random place and random size inside the window
-        for(var i = 0; i < numberOfStains; i++){
+        for(var i = 0; i < numStains; i++){
             let x = this.x + Math.floor(Math.random() * maxWidth);
             let y = this.y + Math.floor(Math.random() * maxHeight);
             let width = Math.floor(Math.random() * 10) + 10;
@@ -94,7 +96,7 @@ class Window{
             console.log("Has create a dirt in the window x: " + x + " y: " + y + " width: " + width + " height: " + height)
         }
 
-        this.dirtsRemaining = numberOfStains; 
+        this.dirtsRemaining = numStains; 
     }
 
 }
