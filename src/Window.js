@@ -23,12 +23,12 @@ class Window{
 
         // hacer random
         this.dirtsRemaining = 0; 
+        this.dirts = [7]; 
 
-        this.dirts = [this.numStainsPerWindow]; 
-
-        for(let i = 0; i < this.numStainsPerWindow; i++){
+        for(let i = 0; i < this.dirts.length; i++){
             this.dirts[i] = null;
         }
+        //Create initial dirtness
         this.CreateDirtness();
     }
 
@@ -78,10 +78,12 @@ class Window{
 
         //Create the stains in a random place and random size inside the window
         for(var i = 0; i < numStains; i++){
-            let x = this.x + Math.floor(Math.random() * maxWidth);
+
+            let x = this.x + Math.floor(Math.random() * maxHeight);
             let y = this.y + Math.floor(Math.random() * maxHeight);
-            let width = Math.floor(Math.random() * 10) + 10;
-            let height = Math.floor(Math.random() * 10) + 10;
+
+            let width = Math.floor(Math.random() * 20) + 10;
+            let height = Math.floor(Math.random() * 20) + 10;
             
             width = Clamp(width, 10, maxWidth) * 3;
             height = Clamp(height, 10, maxHeight) * 3;

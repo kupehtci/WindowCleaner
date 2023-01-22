@@ -35,11 +35,45 @@ document.body.appendChild(canvas);      //Create the canvas in the HTML document
 //____________________________________________________________________
 //INSTANTIATE THE GAME OBJECTS 
 var cleaner = new Spray();
+
+//Create windows
 var windows = [];
 windows[0] = new Window(20,20);
 windows[1] = new Window(20,220);
+windows[2] = new Window(20,420);
+windows[3] = new Window(220,20);
+windows[4] = new Window(220,220);
+windows[5] = new Window(220,420);
+windows[6] = new Window(420,20);
+windows[7] = new Window(420,220);
+windows[8] = new Window(420,420);
 
+//Take reference to the windows in column and rows to use the autockick 
+var windowsC1 = [windows[0], windows[1], windows[2]];
+var windowsC2 = [windows[3], windows[4], windows[5]];
+var windowsC3 = [windows[6], windows[7], windows[8]];
+
+var windowsR1 = [windows[0], windows[3], windows[6]];
+var windowsR2 = [windows[1], windows[4], windows[7]];
+var windowsR3 = [windows[2], windows[5], windows[8]];
+
+//Create manager to manage the game, hud, and the shop
 var manager = new Manager();
+
+//____________________________________________________________________
+//#region HANDLE AUTOCLICK
+
+function HandleAutoclick(windowArray){
+	let randomWindowToAutoclickOn = Math.floor(Math.random() * windowArray.length);
+	let randomIndexStainFromWindow = Math.floor(Math.random() * windowArray[randomWindowToAutoclickOn].dirts.length);
+	windowArray[randomWindowToAutoclickOn]?.dirts[randomIndexStainFromWindow]?.Clean(manager?.damageToDirt);
+	console.log("Autoclick"); 
+}
+setInterval(HandleAutoclick(windowsC1), 1000);
+
+//#endregion 
+
+
 
 //___________________________________________________________________
 //#region CHECK MOUSE POSITION
@@ -97,7 +131,7 @@ addEventListener("click",function(e){
 					}
 					
 					if(clickedDirt.IsActive()){
-						if(clickedDirt.Clean(0.25)){
+						if(clickedDirt.Clean(2)){
 							windows[i].dirtsRemaining--;
 							manager.EarnMoney()
 							cleanedDirt.currentTime = 0;
@@ -139,6 +173,14 @@ addEventListener("click",function(e){
 			moneySpent.currentTime = 0;
 			moneySpent.play();
 			console.log("Option Clicked");
+			switch(clickedOption?.integerOption){
+				case 0: 
+					//Behaviour of box 0
+					break; 
+				case 1: 
+					break; 
+					
+			}
 		}
 	}
 }
