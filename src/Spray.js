@@ -1,7 +1,7 @@
 
 //IÑAKI TE DEJO ESTA CLASE PARA EL OBJETO CLEANER. Te la he dejado ya agregada al index.html pero no instanciado en el main 
 
-class Cleaner{
+class Spray{
     constructor(){
         this.x = 0; 
         this.y = 0;
@@ -31,5 +31,6 @@ class Cleaner{
     }
 
     Update(){
+
     }
 }

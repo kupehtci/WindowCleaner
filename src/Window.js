@@ -21,7 +21,7 @@ class Window{
 
         //VARS FOR DIRTNESS AND STAIN SPAWN IN THE WINDOW
 
-
+        // hacer random
         this.numStainsPerWindow = 3; 
         this.dirtsRemaining = 0; 
 

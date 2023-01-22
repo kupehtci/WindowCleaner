@@ -25,13 +25,22 @@ document.body.appendChild(canvas);      //Create the canvas in the HTML document
 
 //____________________________________________________________________
 //INSTANTIATE THE GAME OBJECTS 
-
+var cleaner = new Spray();
 var windows = [];
 windows[0] = new Window(20,20);
 windows[1] = new Window(20,220);
 
 var manager = new Manager();
+//___________________________________________________________________
+//#region CHECK MOUSE POSITION
+addEventListener("mousemove", function(event) {
+	var mouseX = event.clientX;
+	var mouseY = event.clientY;
+	//console.log("Coordenadas X: " + x + ", Coordenadas Y: " + y);
 
+	cleaner.x = mouseX + cleaner.width/2;
+	cleaner.y = mouseY;// - cleaner.height;
+});
 
 //___________________________________________________________________
 //#region CHECK IF IS CLICKING ON A WINDOW
@@ -132,6 +141,7 @@ function Render(){
 
 	//Render the score and buy options
 	manager.Render();
+	cleaner.Render();
 	//Render the time
 
 	//Render the dirt
@@ -151,6 +161,7 @@ function Update(keysDownArray, modifier){
 
 	//Update the Hud
 	manager.Update(); 
+	cleaner.Update();
 	
 }
 
@@ -207,7 +218,6 @@ var main = function () {
 //Cross-browser support for requestAnimationFrame
 var w = window;
 requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
-
 //TIME VARS
 var then = Date.now(); 
 var tick = 0; 

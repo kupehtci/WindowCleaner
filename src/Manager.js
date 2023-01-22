@@ -25,6 +25,7 @@ class Manager{
          * @type {number} Time in miliseconds to respawn a dirt in the window
          */
         this.timeToRespawnDirt = 2000;
+        this.damageToDirt = 335;
         
         
         //OPTION BOXES
