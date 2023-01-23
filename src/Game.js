@@ -77,7 +77,13 @@ var manager = new Manager();
 function HandleAutoclick(windowArray){
 	let randomWindowToAutoclickOn = Math.floor(Math.random() * windowArray.length);
 	let randomIndexStainFromWindow = Math.floor(Math.random() * windowArray[randomWindowToAutoclickOn].dirts.length);
-	windowArray[randomWindowToAutoclickOn]?.dirts[randomIndexStainFromWindow]?.Clean(manager?.damageToDirt);
+	let successCleaning = windowArray[randomWindowToAutoclickOn]?.dirts[randomIndexStainFromWindow]?.Clean(manager?.damageToDirt);
+	if(!successCleaning){
+		HandleAutoclick(windowArray);
+	}
+	else{
+		windowArray[randomWindowToAutoclickOn].dirtsRemaining--; 
+	}
 	console.log("Autoclick"); 
 
 	//If no dirts remainig in the window, create new dirts after a delay and earn the window cleaned money
