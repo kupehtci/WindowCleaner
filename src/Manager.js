@@ -24,7 +24,7 @@ class Manager{
          * @type {number} Time in miliseconds to respawn a dirt in the window
          */
         this.timeToRespawnDirt = 2000;
-        this.damageToDirt = 0.25;
+        this.damageToDirt = 0.20;
         
         
         //OPTION BOXES
@@ -70,7 +70,7 @@ class Manager{
                 case 0:
                     ctx.fillStyle = "white";
                     ctx.font = "15px Arial";
-                    ctx.fillText("Auto Clean Row 1", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 25);
+                    ctx.fillText("Spray Power", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 25);
                     ctx.fillText("Price: " + this.optionBoxes[i].price, this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 45);
                     ctx.font = "20px Arial";
                     ctx.fillText("Level: " + this.optionBoxes[i].level, this.optionBoxes[i].x + this.optionBoxes[i].width + 15, this.optionBoxes[i].y + 35);
@@ -78,7 +78,7 @@ class Manager{
                 case 1:
                     ctx.fillStyle = "white";
                     ctx.font = "15px Arial";
-                    ctx.fillText("Auto Clean Row 2", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 25);
+                    ctx.fillText("Auto Clean Row 1", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 25);
                     ctx.fillText("Price: " + this.optionBoxes[i].price, this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 45);
                     ctx.font = "20px Arial";
                     ctx.fillText("Level: " + this.optionBoxes[i].level, this.optionBoxes[i].x + this.optionBoxes[i].width + 15, this.optionBoxes[i].y + 35);
@@ -86,7 +86,7 @@ class Manager{
                 case 2:
                     ctx.fillStyle = "white";
                     ctx.font = "15px Arial";
-                    ctx.fillText("Auto Clean Row 3", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 25);
+                    ctx.fillText("Auto Clean Row 2", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 25);
                     ctx.fillText("Price: " + this.optionBoxes[i].price, this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 45);
                     ctx.font = "20px Arial";
                     ctx.fillText("Level: " + this.optionBoxes[i].level, this.optionBoxes[i].x + this.optionBoxes[i].width + 15, this.optionBoxes[i].y + 35);
@@ -94,12 +94,20 @@ class Manager{
                 case 3:
                     ctx.fillStyle = "white";
                     ctx.font = "15px Arial";
+                    ctx.fillText("Auto Clean Row 3", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 25);
+                    ctx.fillText("Price: " + this.optionBoxes[i].price, this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 45);
+                    ctx.font = "20px Arial";
+                    ctx.fillText("Level: " + this.optionBoxes[i].level, this.optionBoxes[i].x + this.optionBoxes[i].width + 15, this.optionBoxes[i].y + 35);
+                    break;
+                case 4:
+                    ctx.fillStyle = "white";
+                    ctx.font = "15px Arial";
                     ctx.fillText("Auto Clean Column 1", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 25);
                     ctx.fillText("Price: " + this.optionBoxes[i].price, this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 45);
                     ctx.font = "20px Arial";
                     ctx.fillText("Level: " + this.optionBoxes[i].level, this.optionBoxes[i].x + this.optionBoxes[i].width + 15, this.optionBoxes[i].y + 35);
                     break; 
-                case 4:
+                case 5:
                     ctx.fillStyle = "white";
                     ctx.font = "15px Arial";
                     ctx.fillText("Auto Clean Column 2", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 25);
@@ -107,7 +115,7 @@ class Manager{
                     ctx.font = "20px Arial";
                     ctx.fillText("Level: " + this.optionBoxes[i].level, this.optionBoxes[i].x + this.optionBoxes[i].width + 15, this.optionBoxes[i].y + 35);
                     break;
-                case 5:
+                case 6:
                     ctx.fillStyle = "white";
                     ctx.font = "15px Arial";
                     ctx.fillText("Auto Clean Column 3", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 25);
@@ -115,15 +123,6 @@ class Manager{
                     ctx.font = "20px Arial";
                     ctx.fillText("Level: " + this.optionBoxes[i].level, this.optionBoxes[i].x + this.optionBoxes[i].width + 15, this.optionBoxes[i].y + 35);
                     break;
-                case 6:
-                    ctx.fillStyle = "white";
-                    ctx.font = "15px Arial";
-                    ctx.fillText("Spray Power", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 25);
-                    ctx.fillText("Price: " + this.optionBoxes[i].price, this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 45);
-                    ctx.font = "20px Arial";
-                    ctx.fillText("Level: " + this.optionBoxes[i].level, this.optionBoxes[i].x + this.optionBoxes[i].width + 15, this.optionBoxes[i].y + 35);
-                    break;
-
                 }
         }
     }

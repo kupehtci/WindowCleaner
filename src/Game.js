@@ -35,7 +35,7 @@ document.body.appendChild(canvas);      //Create the canvas in the HTML document
 
 //____________________________________________________________________
 //INSTANTIATE THE GAME OBJECTS 
-var cleaner = new Spray();
+var spray = new Spray();
 
 //Create windows
 var windows = [];
@@ -83,8 +83,8 @@ addEventListener("mousemove", function(event) {
 	var mouseY = event.clientY;
 	//console.log("Coordenadas X: " + x + ", Coordenadas Y: " + y);
 
-	cleaner.x = mouseX + cleaner.width/2;
-	cleaner.y = mouseY;// - cleaner.height;
+	spray.x = mouseX + spray.width/2;
+	spray.y = mouseY;// - spray.height;
 });
 //#endregion
 
@@ -180,34 +180,36 @@ addEventListener("click",function(e){
 			manager.optionBoxes[i].price = Math.floor(manager.optionBoxes[i].price * manager.optionBoxes[i].priceMultiplier);
 			console.log("Option Clicked");
 			switch(clickedOption?.integerOption){
-				case 0: 
+				case 0:
+					//Behaviour of box 7
+					//Spray Power
+					manager.damageToDirt += 0.1; //NO FUNCIONA PORQUE EN REALIDAD NO USAS ESTA VARIABLE; LO HAS HARDCODEADO CON EL clickedDirt.Clean(0.25)
+					spray.Update(manager.optionBoxes[i].level);
+					break;
+				case 1: 
 					//Behaviour of box 1
 					//Auto clicker Row 1
 					//manager.BuyAutoclicker();
 					break; 
-				case 1: 
+				case 2: 
 					//Behaviour of box 2
 					//Auto clicker Row 2
 					break; 
-				case 2:
+				case 3:
 					//Behaviour of box 3
 					//Auto clicker Row 3
 					break;
-				case 3:
+				case 4:
 					//Behaviour of box 4
 					//Auto clicker Column 1
 					break;
-				case 4:
+				case 5:
 					//Behaviour of box 5
 					//Auto clicker Column 2
 					break;
-				case 5:
+				case 6:
 					//Behaviour of box 6 
 					//Auto clicker Column 3
-					break;
-				case 6:
-					//Behaviour of box 7
-					//Spray Power
 					break;
 			}
 		}
@@ -254,7 +256,7 @@ function Render(){
 
 	//Render the score and buy options
 	manager.Render();
-	cleaner.Render();
+	spray.Render();
 	//Render the time
 
 	//Render the dirt
@@ -274,7 +276,7 @@ function Update(keysDownArray, modifier){
 
 	//Update the Hud
 	manager.Update(); 
-	cleaner.Update();
+	spray.Update();
 	
 }
 

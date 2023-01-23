@@ -31,6 +31,7 @@ class ClickableBox{
     }
 
 
+
     /**
      * Check if the mouse is clicking on this box
      * @param {number} mX Mouse position X 

@@ -7,6 +7,7 @@ class Spray{
         this.y = 0;
         this.width = 0;
         this.height = 0;
+        this.imageCounter = 1;
 
         //VARS FOR IMAGE
         this.scale = 1;
@@ -21,7 +22,8 @@ class Spray{
             this.sprite = image;        //Assign the image to the var sprite and set ready
             this.imageReady = true;
         }
-        image.src = "./assets/windowCleaner.png";
+        this.image = image;
+        this.image.src = "./assets/Spray1.png";
     }
 
     Render(){
@@ -30,7 +32,11 @@ class Spray{
         }
     }
 
-    Update(){
-
+    Update(level){
+        if (level % 2 == 0){
+            console.log("level: " + level);
+            this.imageCounter++;
+            this.image.src = "./assets/Spray" + this.imageCounter.toString() + ".png";
+        }
     }
 }
