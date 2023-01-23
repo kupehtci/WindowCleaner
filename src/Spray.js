@@ -33,7 +33,7 @@ class Spray{
     }
 
     Update(level){
-        if (level % 2 == 0){
+        if (level % 2 == 0 && level < 20){
             console.log("level: " + level);
             this.imageCounter++;
             this.image.src = "./assets/Spray" + this.imageCounter.toString() + ".png";

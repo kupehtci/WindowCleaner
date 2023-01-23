@@ -19,6 +19,7 @@ const spray2 = new Audio("sounds/WaterSpray2.wav");
 const spray3 = new Audio("sounds/WaterSpray3.wav");
 const spray4 = new Audio("sounds/WaterSpray4.wav");
 const noMoney = new Audio("sounds/NotEnoughMoney.wav");
+const bgMusic = new Audio("sounds/WindowCleanerOST.wav");
 //#endregion
 
 //____________________________________________________________________
@@ -49,7 +50,7 @@ var spray = new Spray();
 
 //Create windows
 var windows = [];
-windows[0] = new Window(20, 120);
+windows[0] = new Window(20,120);
 windows[1] = new Window(20,320);
 windows[2] = new Window(20,520);
 windows[3] = new Window(220,120);
@@ -118,7 +119,7 @@ addEventListener("mousemove", function(event) {
 	//console.log("Coordenadas X: " + x + ", Coordenadas Y: " + y);
 
 	spray.x = mouseX + spray.width/2;
-	spray.y = mouseY;// - spray.height;
+	spray.y = mouseY - 5;// - spray.height;
 });
 //#endregion
 
@@ -216,15 +217,11 @@ addEventListener("click",function(e){
 			manager.optionBoxes[i].level += 1;
 			manager.optionBoxes[i].price = Math.floor(manager.optionBoxes[i].price * manager.optionBoxes[i].priceMultiplier);
 			console.log("Option Clicked");
-			switch(clickedOption?.integerOption){
-				case 0:
+			if(clickedOption?.integerOption == 0){
 					//Behaviour of box 7
 					//Spray Power
 					manager.damageToDirt += 0.1; //NO FUNCIONA PORQUE EN REALIDAD NO USAS ESTA VARIABLE; LO HAS HARDCODEADO CON EL clickedDirt.Clean(0.25)
 					spray.Update(manager.optionBoxes[i].level);
-					break;
-				default: 
-					break;
 			}
 		}
 		else{
@@ -237,10 +234,20 @@ addEventListener("click",function(e){
 , false); //false -> for disable options of the event
 //#endregion
 
+//#region Loop BG music if its over
+bgMusic.addEventListener('ended', function() {
+	this.currentTime = 0;
+	this.play();
+	}, false);
+
+//#endregion
 //____________________________________________________________________
 //START - Load things the start of the game
 function Start(){
 	console.log("Start Game"); 
+	//play BG music.
+	bgMusic.currentTime = 0;
+	bgMusic.play();
 }
 //____________________________________________________________________
 //RESET THE GAME
@@ -362,5 +369,3 @@ Reset();
 Start(); 
 
 main();		//Start the main loop of the game 
-
-

@@ -13,6 +13,7 @@ class Manager{
         this.moneyEarn = 5; 
         this.moneyEarnFinishWindow = 100; 
         this.moneyEarnMultiplier = 1.0000; 
+        
 
         //TIME CONTROL VARS 
         /**
@@ -20,7 +21,7 @@ class Manager{
          * @type {number} Time in miliseconds to respawn a dirt in the window
          */
         this.timeToRespawnDirt = 2000;
-        this.damageToDirt = 0.15; 
+        this.damageToDirt = 0; 
 
         this.autoclickTimeC1 = 3100;
         this.autoclickTimeC2 = 3100;
@@ -32,6 +33,7 @@ class Manager{
         
         //OPTION BOXES
         this.optionBoxes = [];
+        this.levelBoxes = [];
 
         /**X axis for the clickable boxes */
         let cbX = 700; 
@@ -42,10 +44,13 @@ class Manager{
         /** Separation in Y axis between each box */
         let cbSepY = 70;
         
-        //Create the option boxes and set the integer option that defines the upgrade behaviour when clicked
+        //Create box for money HUD
+        this.MoneyBox = new TextDisplayBox (canvas.width - 390, 20, 350, 52, 1);
+        //Create the option boxes and set the integer option that defines the upgrade behaviour when clicked -----------------
         for(let i = 0; i < 8; i++){
             this.optionBoxes[i] = new ClickableBox(cbX, cbInitialY + (i * cbSepY), 250, 40);
             this.optionBoxes[i].integerOption = i;
+            this.levelBoxes[i] = new TextDisplayBox(cbX + 257, cbInitialY + (i * cbSepY) + 14, 100, 20, 0);
         }
 
         //TITLE BOX
@@ -64,88 +69,95 @@ class Manager{
     }
 
     Render(){
+
+        this.MoneyBox.Render();
         //Render the money text
-        ctx.fillStyle = "white";
+        ctx.fillStyle = "black";
         ctx.font = "20px Arial";
-        ctx.fillText("Bubbles: " + this.money, canvas.width - 300, 30);
-
+        ctx.fillText("Money: " + this.money + "€", canvas.width - 350, 50);
+ 
         //Render the total money earned
-        ctx.fillStyle = "white";
+        ctx.fillStyle = "black";
         ctx.font = "20px Arial";
-        ctx.fillText("Total Bubbles Earned: " + this.totalMoneyEarned, canvas.width - 300, 50);
-
-        //Render Upgrade Text
-        ctx.fillStyle = "white";
-        ctx.font = "20px Arial";
-        ctx.fillText("Upgrades:", canvas.width - 320, 100);
+        ctx.fillText("Total Money Earned: " + this.totalMoneyEarned + "€", canvas.width - 350, 80);
     
         //render the option boxes
         for(let i = 0; i < this.optionBoxes?.length; i++){
             this.optionBoxes[i].Render();
+            this.levelBoxes[i].Render();
         }
         for(let i = 0; i < this.optionBoxes.length; i++){
             switch (this.optionBoxes[i].integerOption) {
                 case 0:
-                    ctx.fillStyle = "white";
+                    ctx.fillStyle = "black";
+                    
                     ctx.font = "15px Arial";
-                    ctx.fillText("Spray Power", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 25);
-                    ctx.fillText("Price: " + this.optionBoxes[i].price + " Damage: " + (this.damageToDirt * 100) + "%", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 45);
+                    ctx.fillText("Spray Brand", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 20);
+                    ctx.fillText("Price: " + this.optionBoxes[i].price, this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 40);
+                    ctx.fillText("Damage: " + (this.damageToDirt * 100) + "%", this.optionBoxes[i].x + 120, this.optionBoxes[i].y + 40)
                     ctx.font = "20px Arial";
                     ctx.fillText("Level: " + this.optionBoxes[i].level, this.optionBoxes[i].x + this.optionBoxes[i].width + 15, this.optionBoxes[i].y + 35);
                     break;
                 case 1:
-                    ctx.fillStyle = "white";
+                    ctx.fillStyle = "black";
                     ctx.font = "15px Arial";
-                    ctx.fillText("Auto Clean Row 1", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 25);
-                    ctx.fillText("Price: " + this.optionBoxes[i].price + " Time delay: " + (this.autoclickTimeR1/1000) + " s", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 45);
+                    ctx.fillText("RoboCleaner Row 1", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 20);
+                    ctx.fillText("Price: " + this.optionBoxes[i].price, this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 40);
+                    ctx.fillText("Time delay: " + (this.autoclickTimeR1/1000) + "s", this.optionBoxes[i].x + 120, this.optionBoxes[i].y + 40)
                     ctx.font = "20px Arial";
                     ctx.fillText("Level: " + this.optionBoxes[i].level, this.optionBoxes[i].x + this.optionBoxes[i].width + 15, this.optionBoxes[i].y + 35);
                     break;
                 case 2:
-                    ctx.fillStyle = "white";
+                    ctx.fillStyle = "black";
                     ctx.font = "15px Arial";
-                    ctx.fillText("Auto Clean Row 2", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 25);
-                    ctx.fillText("Price: " + this.optionBoxes[i].price + " Time delay: " + (this.autoclickTimeR2/1000) + " s", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 45);
+                    ctx.fillText("RoboCleaner Row 2", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 20);
+                    ctx.fillText("Price: " + this.optionBoxes[i].price, this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 40);
+                    ctx.fillText("Time delay: " + (this.autoclickTimeR2/1000) + "s", this.optionBoxes[i].x + 120, this.optionBoxes[i].y + 40)
                     ctx.font = "20px Arial";
                     ctx.fillText("Level: " + this.optionBoxes[i].level, this.optionBoxes[i].x + this.optionBoxes[i].width + 15, this.optionBoxes[i].y + 35);
                     break;
                 case 3:
-                    ctx.fillStyle = "white";
+                    ctx.fillStyle = "black";
                     ctx.font = "15px Arial";
-                    ctx.fillText("Auto Clean Row 3", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 25);
-                    ctx.fillText("Price: " + this.optionBoxes[i].price + " Time delay: " + (this.autoclickTimeR3/1000) + " s", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 45);
+                    ctx.fillText("RoboCleaner Row 3", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 20);
+                    ctx.fillText("Price: " + this.optionBoxes[i].price, this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 40);
+                    ctx.fillText("Time delay: " + (this.autoclickTimeR3/1000) + "s", this.optionBoxes[i].x + 120, this.optionBoxes[i].y + 40)
                     ctx.font = "20px Arial";
                     ctx.fillText("Level: " + this.optionBoxes[i].level, this.optionBoxes[i].x + this.optionBoxes[i].width + 15, this.optionBoxes[i].y + 35);
                     break;
                 case 4:
-                    ctx.fillStyle = "white";
+                    ctx.fillStyle = "black";
                     ctx.font = "15px Arial";
-                    ctx.fillText("Auto Clean Column 1", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 25);
-                    ctx.fillText("Price: " + this.optionBoxes[i].price + " Time delay: " + (this.autoclickTimeC1/1000) + " s", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 45);
+                    ctx.fillText("RoboCleaner Column 1", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 20);
+                    ctx.fillText("Price: " + this.optionBoxes[i].price, this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 40);
+                    ctx.fillText("Time delay: " + (this.autoclickTimeC1/1000) + "s", this.optionBoxes[i].x + 120, this.optionBoxes[i].y + 40)
                     ctx.font = "20px Arial";
                     ctx.fillText("Level: " + this.optionBoxes[i].level, this.optionBoxes[i].x + this.optionBoxes[i].width + 15, this.optionBoxes[i].y + 35);
                     break; 
                 case 5:
-                    ctx.fillStyle = "white";
+                    ctx.fillStyle = "black";
                     ctx.font = "15px Arial";
-                    ctx.fillText("Auto Clean Column 2", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 25);
-                    ctx.fillText("Price: " + this.optionBoxes[i].price + " Time delay: " + (this.autoclickTimeC2/1000) + " s", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 45);
+                    ctx.fillText("RoboCleaner Column 2", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 20);
+                    ctx.fillText("Price: " + this.optionBoxes[i].price, this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 40);
+                    ctx.fillText("Time delay: " + (this.autoclickTimeC2/1000) + "s", this.optionBoxes[i].x + 120, this.optionBoxes[i].y + 40)
                     ctx.font = "20px Arial";
                     ctx.fillText("Level: " + this.optionBoxes[i].level, this.optionBoxes[i].x + this.optionBoxes[i].width + 15, this.optionBoxes[i].y + 35);
                     break;
                 case 6:
-                    ctx.fillStyle = "white";
+                    ctx.fillStyle = "black";
                     ctx.font = "15px Arial";
-                    ctx.fillText("Auto Clean Column 3", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 25);
-                    ctx.fillText("Price: " + this.optionBoxes[i].price + " Time delay: " + (this.autoclickTimeC3/1000) + " s", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 45);
+                    ctx.fillText("RoboCleaner Column 3", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 20);
+                    ctx.fillText("Price: " + this.optionBoxes[i].price, this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 40);
+                    ctx.fillText("Time delay: " + (this.autoclickTimeC3/1000) + "s", this.optionBoxes[i].x + 120, this.optionBoxes[i].y + 40)
                     ctx.font = "20px Arial";
                     ctx.fillText("Level: " + this.optionBoxes[i].level, this.optionBoxes[i].x + this.optionBoxes[i].width + 15, this.optionBoxes[i].y + 35);
                     break;
                 case 7:
-                    ctx.fillStyle = "white";
+                    ctx.fillStyle = "black";
                     ctx.font = "15px Arial";
-                    ctx.fillText("Money Multiplier", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 25);
-                    ctx.fillText("Price: " + this.optionBoxes[i].price + " Money Multiplier: x" + this.moneyEarnMultiplier, this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 45);
+                    ctx.fillText("Get A Raise", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 20);
+                    ctx.fillText("Price: " + this.optionBoxes[i].price, this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 40);
+                    ctx.fillText("Multiplier: x" + this.moneyEarnMultiplier, this.optionBoxes[i].x + 120, this.optionBoxes[i].y + 40)
                     ctx.font = "20px Arial";
                     ctx.fillText("Level: " + this.optionBoxes[i].level, this.optionBoxes[i].x + this.optionBoxes[i].width + 15, this.optionBoxes[i].y + 35);
                 }
@@ -183,11 +195,11 @@ class Manager{
         this.autoclickTimeR3 = 3100 - (this.optionBoxes[3].level * 100);
         this.autoclickTimeR3 = Clamp(this.autoclickTimeR3, minTime, maxTime);
 
-        //UPDATE OTHER VARS WHITH THE BUY LEVEL OPTIONS
+        //UPDATE OTHER VARS WITH THE BUY LEVEL OPTIONS
         this.moneyEarnMultiplier = (1 + ((this.optionBoxes[7].level - 1) * 0.1));
         this.moneyEarnMultiplier = Number(this.moneyEarnMultiplier.toFixed(2));
 
-        this.damageToDirt = 0.15 + ((this.optionBoxes[0].level - 1) * 0.05);
+        this.damageToDirt = 0.10 + ((this.optionBoxes[0].level - 1) * 0.05);
         this.damageToDirt = Number(this.damageToDirt.toFixed(2));
     }
 
