@@ -77,12 +77,10 @@ var manager = new Manager();
 function HandleAutoclick(windowArray){
 	let randomWindowToAutoclickOn = Math.floor(Math.random() * windowArray.length);
 	let randomIndexStainFromWindow = Math.floor(Math.random() * windowArray[randomWindowToAutoclickOn].dirts.length);
-	let successCleaning = windowArray[randomWindowToAutoclickOn]?.dirts[randomIndexStainFromWindow]?.Clean(manager?.damageToDirt);
-	if(!successCleaning){
-		HandleAutoclick(windowArray);
-	}
-	else{
-		windowArray[randomWindowToAutoclickOn].dirtsRemaining--; 
+	if(windowArray[randomWindowToAutoclickOn]?.dirts[randomIndexStainFromWindow]?.Clean(manager?.damageToDirt))
+	{
+		windowArray[randomWindowToAutoclickOn].dirtsRemaining--;
+		console.log("Dirt cleaned: " + windowArray[randomWindowToAutoclickOn].dirtsRemaining); 
 	}
 	console.log("Autoclick"); 
 
@@ -224,30 +222,7 @@ addEventListener("click",function(e){
 					manager.damageToDirt += 0.1; //NO FUNCIONA PORQUE EN REALIDAD NO USAS ESTA VARIABLE; LO HAS HARDCODEADO CON EL clickedDirt.Clean(0.25)
 					spray.Update(manager.optionBoxes[i].level);
 					break;
-				case 1: 
-					//Behaviour of box 1
-					//Auto clicker Row 1
-					//manager.BuyAutoclicker();
-					break; 
-				case 2: 
-					//Behaviour of box 2
-					//Auto clicker Row 2
-					break; 
-				case 3:
-					//Behaviour of box 3
-					//Auto clicker Row 3
-					break;
-				case 4:
-					//Behaviour of box 4
-					//Auto clicker Column 1
-					break;
-				case 5:
-					//Behaviour of box 5
-					//Auto clicker Column 2
-					break;
-				case 6:
-					//Behaviour of box 6 
-					//Auto clicker Column 3
+				default: 
 					break;
 			}
 		}

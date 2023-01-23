@@ -132,6 +132,11 @@ class Dirt{
     IsActive(){
         return this.active;
     }
+
+    /**Check if dirt is cleaned */
+    IsCleaned(){
+        return this.health <= 0;
+    }
 }
 
 

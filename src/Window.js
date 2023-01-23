@@ -55,6 +55,7 @@ class Window{
             this.dirts?.[i]?.Update();
         }
 
+        
         //If a stain is not active so has been cleaned, create a new one
         // if(this.dirts.length < this.numStainsPerWindow){
         //     this.CreateDirtness(1);
@@ -95,7 +96,7 @@ class Window{
             l_dirt.height = height;
 
             this.dirts.push(l_dirt);
-            console.log("Has create a dirt in the window x: " + x + " y: " + y + " width: " + width + " height: " + height)
+            // console.log("Has create a dirt in the window x: " + x + " y: " + y + " width: " + width + " height: " + height)
         }
 
         this.dirtsRemaining = numStains; 
