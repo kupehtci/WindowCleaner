@@ -49,15 +49,15 @@ var spray = new Spray();
 
 //Create windows
 var windows = [];
-windows[0] = new Window(20,20);
-windows[1] = new Window(20,220);
-windows[2] = new Window(20,420);
-windows[3] = new Window(220,20);
-windows[4] = new Window(220,220);
-windows[5] = new Window(220,420);
-windows[6] = new Window(420,20);
-windows[7] = new Window(420,220);
-windows[8] = new Window(420,420);
+windows[0] = new Window(20, 120);
+windows[1] = new Window(20,320);
+windows[2] = new Window(20,520);
+windows[3] = new Window(220,120);
+windows[4] = new Window(220,320);
+windows[5] = new Window(220,520);
+windows[6] = new Window(420,120);
+windows[7] = new Window(420,320);
+windows[8] = new Window(420,520);
 
 //Take reference to the windows in column and rows to use the autockick 
 var windowsC1 = [windows[0], windows[1], windows[2]];
@@ -79,8 +79,27 @@ function HandleAutoclick(windowArray){
 	let randomIndexStainFromWindow = Math.floor(Math.random() * windowArray[randomWindowToAutoclickOn].dirts.length);
 	windowArray[randomWindowToAutoclickOn]?.dirts[randomIndexStainFromWindow]?.Clean(manager?.damageToDirt);
 	console.log("Autoclick"); 
+
+	//If no dirts remainig in the window, create new dirts after a delay and earn the window cleaned money
+	if(windowArray[randomWindowToAutoclickOn].dirtsRemaining <= 0){
+		setTimeout(function(window){
+			window.CreateDirtness();
+		}, 
+		manager.timeToRespawnDirt,
+			windowArray[randomWindowToAutoclickOn]);
+			//Earn the money because have cleaned the entire window
+		manager.EarnMoneyFinishWindow(); 
+	}
 }
-setInterval(HandleAutoclick(windowsC1), 1000);
+
+//AUTOCLICK ON WINDOWS IN COLUMNS AND ROWS AT STABLISHED TIME
+setInterval(HandleAutoclick, manager.autoclickTimeC1, windowsC1);
+setInterval(HandleAutoclick, manager.autoclickTimeC2, windowsC2);
+setInterval(HandleAutoclick, manager.autoclickTimeC3, windowsC3);
+setInterval(HandleAutoclick, manager.autoclickTimeR1, windowsR1);
+setInterval(HandleAutoclick, manager.autoclickTimeR2, windowsR2);
+setInterval(HandleAutoclick, manager.autoclickTimeR3, windowsR3);
+
 
 //#endregion 
 
@@ -148,12 +167,15 @@ addEventListener("click",function(e){
 							cleanedDirt.currentTime = 0;
 							cleanedDirt.play();
 
+							//If no dirts remainig in the window, create new dirts after a delay and earn the window cleaned money
 							if(windows[i].dirtsRemaining <= 0){
 								setTimeout(function(window){
 									window.CreateDirtness();
 								}, 
 								manager.timeToRespawnDirt,
 									windows[i]);
+									//Earn the money because have cleaned the entire window
+								manager.EarnMoneyFinishWindow(); 
 							}
 
 							// console.log("Dirt Cleaned");

@@ -85,7 +85,12 @@ class Dirt{
      * @returns {boolean} True if the dirt was destroyed by the cleaning
      */
     Clean(percentaje){
-        this.health -= percentaje * this.maxHealth;
+        let damageToTheDirt = manager.damageToDirt; 
+        //if damageToTheDirt is undefined, set it to 0.15; 
+        if(damageToTheDirt == undefined){
+            damageToTheDirt = 0.15;
+        }
+        this.health -=  damageToTheDirt * this.maxHealth;
         this.health = Clamp(this.health, 0, this.maxHealth);
 
         if(this.health <= 0){
