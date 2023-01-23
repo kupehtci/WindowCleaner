@@ -30,6 +30,8 @@ class Window{
         }
         //Create initial dirtness
         this.CreateDirtness();
+
+        this.le = true; 
     }
 
     //____________________________________________________________________
@@ -55,7 +57,27 @@ class Window{
             this.dirts?.[i]?.Update();
         }
 
-        
+        // //COunt dirts active
+        // let numActiveStains = 0;
+        // for(let i = 0; i < 7; i++){
+        //     if(this.dirts[i]?.active){
+        //         console.log("stuck in" + i); 
+        //         numActiveStains++;
+        //     }
+        // }
+        // this.dirtsRemaining = numActiveStains;
+
+        if(this.dirtsRemaining <= 0 && this.le){
+            setTimeout(function(window){
+                window.CreateDirtness();
+                this.le = true;
+            }, 
+            manager.timeToRespawnDirt,
+                this);
+            manager.EarnMoneyFinishWindow(); 
+            this.le = false;
+        }
+
         //If a stain is not active so has been cleaned, create a new one
         // if(this.dirts.length < this.numStainsPerWindow){
         //     this.CreateDirtness(1);

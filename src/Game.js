@@ -80,20 +80,21 @@ function HandleAutoclick(windowArray){
 	if(windowArray[randomWindowToAutoclickOn]?.dirts[randomIndexStainFromWindow]?.Clean(manager?.damageToDirt))
 	{
 		windowArray[randomWindowToAutoclickOn].dirtsRemaining--;
-		console.log("Dirt cleaned: " + windowArray[randomWindowToAutoclickOn].dirtsRemaining); 
 	}
 	console.log("Autoclick"); 
 
+	//Show an sprite only a time
+
 	//If no dirts remainig in the window, create new dirts after a delay and earn the window cleaned money
-	if(windowArray[randomWindowToAutoclickOn].dirtsRemaining <= 0){
-		setTimeout(function(window){
-			window.CreateDirtness();
-		}, 
-		manager.timeToRespawnDirt,
-			windowArray[randomWindowToAutoclickOn]);
-			//Earn the money because have cleaned the entire window
-		manager.EarnMoneyFinishWindow(); 
-	}
+	// if(windowArray[randomWindowToAutoclickOn].dirtsRemaining <= 0){
+	// 	setTimeout(function(window){
+	// 		window.CreateDirtness();
+	// 	}, 
+	// 	manager.timeToRespawnDirt,
+	// 		windowArray[randomWindowToAutoclickOn]);
+	// 		//Earn the money because have cleaned the entire window
+	// 	manager.EarnMoneyFinishWindow(); 
+	// }
 }
 
 //AUTOCLICK ON WINDOWS IN COLUMNS AND ROWS AT STABLISHED TIME
@@ -172,15 +173,15 @@ addEventListener("click",function(e){
 							cleanedDirt.play();
 
 							//If no dirts remainig in the window, create new dirts after a delay and earn the window cleaned money
-							if(windows[i].dirtsRemaining <= 0){
-								setTimeout(function(window){
-									window.CreateDirtness();
-								}, 
-								manager.timeToRespawnDirt,
-									windows[i]);
-									//Earn the money because have cleaned the entire window
-								manager.EarnMoneyFinishWindow(); 
-							}
+							// if(windows[i].dirtsRemaining <= 0){
+							// 	setTimeout(function(window){
+							// 		window.CreateDirtness();
+							// 	}, 
+							// 	manager.timeToRespawnDirt,
+							// 		windows[i]);
+							// 		//Earn the money because have cleaned the entire window
+							// 	manager.EarnMoneyFinishWindow(); 
+							// }
 
 							// console.log("Dirt Cleaned");
 						}

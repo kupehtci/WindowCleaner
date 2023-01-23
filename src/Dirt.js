@@ -94,6 +94,7 @@ class Dirt{
         this.health = Clamp(this.health, 0, this.maxHealth);
 
         if(this.health <= 0){
+            this.active = false;
             this.Destroy();
             return true; 
         }
@@ -106,7 +107,6 @@ class Dirt{
      * @returns {boolean} False if the dirt was already inactive
      */
     Destroy(){
-        if(!this.active){ return false; }
         this.active = false;
         
         //Dealocate the image out of the window to avoid interferences when cleaning other stains
