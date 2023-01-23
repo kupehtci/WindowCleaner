@@ -1,4 +1,8 @@
 body
 {
-	cursor: url(../assets/windowCleaner.png), auto; 
+	cursor: url('../assets/Spray1.png'), auto; 
+}
+a
+{
+	cursor: url('../assets/Spray2.png'), auto;
 }

@@ -17,7 +17,7 @@ class Window{
             this.sprite = image;
             this.imageReady = true;
         }
-        image.src = "./assets/window.png";
+        image.src = "./assets/windowBrownStraight.png";
 
         //VARS FOR DIRTNESS AND STAIN SPAWN IN THE WINDOW
 

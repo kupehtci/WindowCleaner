@@ -10,7 +10,6 @@ var screenHeight = 720;
 //MAIN GAME VARS
 
 
-
 //____________________________________________________________________
 //#region SOUNDS
 const cleanedDirt = new Audio("sounds/WindowWipe.wav");
@@ -23,7 +22,7 @@ const noMoney = new Audio("sounds/NotEnoughMoney.wav");
 //#endregion
 
 //____________________________________________________________________
-//#region CREATE CANVAS IN SCREEN
+//#region CREATE CANVAS AND BACKGROUND IN SCREEN
 canvas = document.createElement("canvas"); 
 ctx = canvas.getContext("2d"); 
 
@@ -31,6 +30,17 @@ canvas.width = screenWidth;
 canvas.height = screenHeight;
 
 document.body.appendChild(canvas);      //Create the canvas in the HTML document
+
+//Background
+var bgPattern;
+var tileReady = false;
+var tileImage = new Image();
+tileImage.onload = function () {
+	tileReady = true;
+	bgPattern = ctx.createPattern(tileImage,"repeat");
+};
+tileImage.src = "./assets/brickWall1.png";
+
 //#endregion
 
 //____________________________________________________________________
@@ -244,8 +254,12 @@ function Restart(){
 //RENDER THE GAME
 function Render(){
 	//Render background
-	ctx.fillStyle = "rgb(200, 200, 200)";
-	ctx.fillRect(0, 0, screenWidth, screenHeight);
+	//ctx.fillStyle = "rgb(200, 200, 200)";
+	//ctx.fillRect(0, 0, screenWidth, screenHeight);
+	if(tileReady){
+		ctx.fillStyle = bgPattern;
+		ctx.fillRect(0, 0, screenWidth, screenHeight);
+	}
 	
 	//Render the windows
 	for(var i = 0; i < windows.length; i++){
