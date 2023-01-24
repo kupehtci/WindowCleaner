@@ -6,7 +6,7 @@ class Manager{
     constructor(){
 
         //MONEY VARS
-        this.money = 0; 
+        this.money = 100000000000; 
         this.totalMoneyEarned = 0;        
 
         
@@ -165,7 +165,7 @@ class Manager{
 
         //DRAW THE TITLE CARTEL 
         if(this.imageReady){
-            console.log("Render title cartel at " + (screenWidth - this.imageWidth - 20) + " y: " + 500 + " width: " + this.width + " height: " + this.height + ""); 
+            //console.log("Render title cartel at " + (screenWidth - this.imageWidth - 20) + " y: " + 500 + " width: " + this.width + " height: " + this.height + ""); 
             ctx.drawImage(this.sprite, 0, 0, this.imageWidth,this.imageHeight);
         }
     }
@@ -196,7 +196,7 @@ class Manager{
         this.autoclickTimeR3 = Clamp(this.autoclickTimeR3, minTime, maxTime);
 
         //UPDATE OTHER VARS WITH THE BUY LEVEL OPTIONS
-        this.moneyEarnMultiplier = (1 + ((this.optionBoxes[7].level - 1) * 0.1));
+        this.moneyEarnMultiplier = (1 + ((this.optionBoxes[7].level - 1) * 1));
         this.moneyEarnMultiplier = Number(this.moneyEarnMultiplier.toFixed(2));
 
         this.damageToDirt = 0.10 + ((this.optionBoxes[0].level - 1) * 0.05);

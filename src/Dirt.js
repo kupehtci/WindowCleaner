@@ -84,7 +84,7 @@ class Dirt{
      * @param {number} percentaje between 0 to 1 to reduce the health of the stain 
      * @returns {boolean} True if the dirt was destroyed by the cleaning
      */
-    Clean(percentaje){
+    Clean(windowUbicated){
         let damageToTheDirt = manager.damageToDirt; 
         //if damageToTheDirt is undefined, set it to 0.15; 
         if(damageToTheDirt == undefined){
@@ -95,6 +95,7 @@ class Dirt{
 
         if(this.health <= 0){
             this.active = false;
+            windowUbicated.dirtsRemaining--; 
             this.Destroy();
             return true; 
         }

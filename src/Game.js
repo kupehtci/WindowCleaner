@@ -74,37 +74,39 @@ var manager = new Manager();
 
 //____________________________________________________________________
 //#region HANDLE AUTOCLICK
+var autoclickCreate = true; 
 
 function HandleAutoclick(windowArray){
 	let randomWindowToAutoclickOn = Math.floor(Math.random() * windowArray.length);
 	let randomIndexStainFromWindow = Math.floor(Math.random() * windowArray[randomWindowToAutoclickOn].dirts.length);
-	if(windowArray[randomWindowToAutoclickOn]?.dirts[randomIndexStainFromWindow]?.Clean(manager?.damageToDirt))
+	if(windowArray[randomWindowToAutoclickOn]?.dirts[randomIndexStainFromWindow]?.Clean(windowArray[randomWindowToAutoclickOn]))
 	{
-		windowArray[randomWindowToAutoclickOn].dirtsRemaining--;
+		//windowArray[randomWindowToAutoclickOn].dirtsRemaining--;
 	}
-	console.log("Autoclick"); 
-
-	//Show an sprite only a time
 
 	//If no dirts remainig in the window, create new dirts after a delay and earn the window cleaned money
-	// if(windowArray[randomWindowToAutoclickOn].dirtsRemaining <= 0){
-	// 	setTimeout(function(window){
-	// 		window.CreateDirtness();
-	// 	}, 
-	// 	manager.timeToRespawnDirt,
-	// 		windowArray[randomWindowToAutoclickOn]);
-	// 		//Earn the money because have cleaned the entire window
-	// 	manager.EarnMoneyFinishWindow(); 
-	// }
+	if(windowArray[randomWindowToAutoclickOn].dirtsRemaining <= 0 && autoclickCreate){
+		console.log("Create new dirts from autoclick"); 
+		autoclickCreate = false;
+		setTimeout(function(window){
+			window.CreateDirtness();
+			autoclickCreate = true;
+		}, 
+		manager.timeToRespawnDirt,
+			windowArray[randomWindowToAutoclickOn]);
+			//Earn the money because have cleaned the entire window
+		manager.EarnMoneyFinishWindow(); 
+	}
 }
 
 //AUTOCLICK ON WINDOWS IN COLUMNS AND ROWS AT STABLISHED TIME
-setInterval(HandleAutoclick, manager.autoclickTimeC1, windowsC1);
-setInterval(HandleAutoclick, manager.autoclickTimeC2, windowsC2);
-setInterval(HandleAutoclick, manager.autoclickTimeC3, windowsC3);
-setInterval(HandleAutoclick, manager.autoclickTimeR1, windowsR1);
-setInterval(HandleAutoclick, manager.autoclickTimeR2, windowsR2);
-setInterval(HandleAutoclick, manager.autoclickTimeR3, windowsR3);
+/**Intervals saved to reset when time delay changes */
+var interC1 = setInterval(HandleAutoclick, manager.autoclickTimeC1, windowsC1);
+var interC2 = setInterval(HandleAutoclick, manager.autoclickTimeC2, windowsC2);
+var interC3 = setInterval(HandleAutoclick, manager.autoclickTimeC3, windowsC3);
+var interR1 = setInterval(HandleAutoclick, manager.autoclickTimeR1, windowsR1);
+var interR2 = setInterval(HandleAutoclick, manager.autoclickTimeR2, windowsR2);
+var interR3 = setInterval(HandleAutoclick, manager.autoclickTimeR3, windowsR3);
 
 
 //#endregion 
@@ -129,8 +131,6 @@ addEventListener("click",function(e){
 		let eX = e.offsetX;
 		let eY = e.offsetY;
 
-		console.log("Check if window has been clicked"); 
-
 		//check if is clicking on a window
 		for(var i = 0; i < windows.length; i++){
 			
@@ -141,7 +141,7 @@ addEventListener("click",function(e){
 
 				if(eX > clickedDirt?.x && eX < (clickedDirt?.x + clickedDirt?.width) && eY > clickedDirt?.y && eY < (clickedDirt?.y + clickedDirt?.height)){
 					
-					//crear un generador de numeros aleatorios del 1 al 4
+					//Generate a random number to play a sound
 					let random = Math.floor(Math.random() * 4) + 1;
 					switch(random){
 						case 1:
@@ -167,22 +167,22 @@ addEventListener("click",function(e){
 					}
 					
 					if(clickedDirt.IsActive()){
-						if(clickedDirt.Clean(0.25)){
-							windows[i].dirtsRemaining--;
+						if(clickedDirt.Clean(windows[i])){
+							//windows[i].dirtsRemaining--;
 							manager.EarnMoney()
 							cleanedDirt.currentTime = 0;
 							cleanedDirt.play();
 
 							//If no dirts remainig in the window, create new dirts after a delay and earn the window cleaned money
-							// if(windows[i].dirtsRemaining <= 0){
-							// 	setTimeout(function(window){
-							// 		window.CreateDirtness();
-							// 	}, 
-							// 	manager.timeToRespawnDirt,
-							// 		windows[i]);
-							// 		//Earn the money because have cleaned the entire window
-							// 	manager.EarnMoneyFinishWindow(); 
-							// }
+							if(windows[i].dirtsRemaining <= 0){
+								setTimeout(function(window){
+									window.CreateDirtness();
+								}, 
+								manager.timeToRespawnDirt,
+									windows[i]);
+									//Earn the money because have cleaned the entire window
+								manager.EarnMoneyFinishWindow(); 
+							}
 
 							// console.log("Dirt Cleaned");
 						}
@@ -201,8 +201,6 @@ addEventListener("click",function(e){
 addEventListener("click",function(e){
 	let eX = e.offsetX;
 	let eY = e.offsetY;
-
-	console.log("Check if buy option has been clicked");
 	
 	//check if is clicking on a buy option
 	for(var i = 0; i < manager.optionBoxes.length; i++){
@@ -217,11 +215,46 @@ addEventListener("click",function(e){
 			manager.optionBoxes[i].level += 1;
 			manager.optionBoxes[i].price = Math.floor(manager.optionBoxes[i].price * manager.optionBoxes[i].priceMultiplier);
 			console.log("Option Clicked");
-			if(clickedOption?.integerOption == 0){
-					//Behaviour of box 7
-					//Spray Power
-					manager.damageToDirt += 0.1; //NO FUNCIONA PORQUE EN REALIDAD NO USAS ESTA VARIABLE; LO HAS HARDCODEADO CON EL clickedDirt.Clean(0.25)
-					spray.Update(manager.optionBoxes[i].level);
+			switch(clickedOption?.integerOption){
+			case 0: 
+				//Behaviour of box 7
+				//Spray Power
+				manager.damageToDirt += 0.1; //NO FUNCIONA PORQUE EN REALIDAD NO USAS ESTA VARIABLE; LO HAS HARDCODEADO CON EL clickedDirt.Clean(0.25)
+				spray.Update(manager.optionBoxes[i].level);
+				break; 
+			case 1:	//Reset autoclick intervals when buy an upgrade
+				clearInterval(interR1); 
+				manager.Update(); 
+				setInterval(HandleAutoclick, manager.autoclickTimeR1, windowsR1);
+				break; 
+			case 2: 
+				clearInterval(interR2);
+				manager.Update();
+				setInterval(HandleAutoclick, manager.autoclickTimeR2, windowsR2);
+				break;
+			case 3:
+				clearInterval(interR3);
+				manager.Update();
+				setInterval(HandleAutoclick, manager.autoclickTimeR3, windowsR3);
+				break;
+			case 4:
+				clearInterval(interC1);
+				manager.Update(); 
+				setInterval(HandleAutoclick, manager.autoclickTimeC1, windowsC1);
+				break;
+			case 5:
+				clearInterval(interC2);
+				manager.Update();
+				setInterval(HandleAutoclick, manager.autoclickTimeC2, windowsC2);
+				break;
+			case 6:
+				clearInterval(interC3);
+				manager.Update();
+				setInterval(HandleAutoclick, manager.autoclickTimeC3, windowsC3);
+				break;
+			default: 
+				console.log("Not defined integer option"); 
+				break; 
 			}
 		}
 		else{
