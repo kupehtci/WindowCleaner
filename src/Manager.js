@@ -90,7 +90,6 @@ class Manager{
             switch (this.optionBoxes[i].integerOption) {
                 case 0:
                     ctx.fillStyle = "black";
-                    
                     ctx.font = "15px Arial";
                     ctx.fillText("Spray Brand", this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 20);
                     ctx.fillText("Price: " + this.optionBoxes[i].price, this.optionBoxes[i].x + 15, this.optionBoxes[i].y + 40);
@@ -165,7 +164,6 @@ class Manager{
 
         //DRAW THE TITLE CARTEL 
         if(this.imageReady){
-            //console.log("Render title cartel at " + (screenWidth - this.imageWidth - 20) + " y: " + 500 + " width: " + this.width + " height: " + this.height + ""); 
             ctx.drawImage(this.sprite, 0, 0, this.imageWidth,this.imageHeight);
         }
     }
@@ -210,7 +208,10 @@ class Manager{
     EarnMoney(){
         //Update money earned and total 
         this.money += this.moneyEarn * this.moneyEarnMultiplier; 
+        this.money = Number(this.money.toFixed(2)); //Round to 2 decimals
+
         this.totalMoneyEarned += this.moneyEarn * this.moneyEarnMultiplier;
+        this.totalMoneyEarned = Number(this.totalMoneyEarned.toFixed(2)); //Round to 2 decimals
     }
 
     /**
