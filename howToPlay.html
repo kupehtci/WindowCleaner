@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Window Cleaner</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- STAY PIXELATED FONT FAMILY -->
+        <!-- <link rel="stylesheet" href="./Fonts/StayPixelRegular.ttf"> -->
+
+        <!-- <style>
+            @font-face {
+                font-family: 'SVN-SupercellMagic';
+                src: url("./Fonts/SVN-SupercellMagic.ttf") format('truetype');
+            }
+        </style> -->
+         <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <!-- Global use functions
+        Clamp(value, min, max),  -->
+        <script src = "src/GlobalFunctions.js"></script>
+
+        <!-- Classes scripts for the game -->
+        <script src = "src/ClickableBox.js"></script>
+        <script src = "src/Manager.js">     </script>
+        <script src = "src/Dirt.js" >   </script>       
+        <script src = "src/Window.js">  </script>
+        <script src = "src/Spray.js"> </script>
+        <script src = "src/TextDisplayBox.js"> </script>
+
+        <!-- Main Game Loop script -->
+        <script src = "src/Game.js">    </script>
+        <!-- Body style settings-->
+        <link rel = "stylesheet" href="css/mouseSpray.css"> 
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                background-color: #000000;
+                overflow: hidden;
+                font-family: 'StayPixelRegular', Courier, monospace;
+            }
+        </style>
+    </body>
+</html>
