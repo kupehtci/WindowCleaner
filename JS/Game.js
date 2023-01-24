@@ -217,7 +217,7 @@ addEventListener("click",function(e){
 			case 0: 
 				//Behaviour of box 7
 				//Spray Power
-				manager.damageToDirt += 0.1; //NO FUNCIONA PORQUE EN REALIDAD NO USAS ESTA VARIABLE; LO HAS HARDCODEADO CON EL clickedDirt.Clean(0.25)
+				manager.damageToDirt += 0.1; 
 				spray.Update(manager.optionBoxes[i].level);
 				break; 
 			case 1:	//Reset autoclick intervals when buy an upgrade
