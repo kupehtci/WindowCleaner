@@ -6,7 +6,7 @@ class Manager{
     constructor(){
 
         //MONEY VARS
-        this.money = 100000000000; 
+        this.money = 0; 
         this.totalMoneyEarned = 0;        
 
         

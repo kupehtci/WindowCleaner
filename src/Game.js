@@ -73,24 +73,6 @@ var windowsR3 = [windows[2], windows[5], windows[8]];
 var manager = new Manager();
 
 //____________________________________________________________________
-//ROBOCLEAN CLASS
-class RoboClean{
-	constructor(){
-		this.x = 0;
-		this.y = 0;
-		this.width = 100;
-		this.height = 100;
-
-		let image = new Image();
-		image.src = "./assets/RoboCleanerMini.png";
-		this.imageReady = false;
-		image.onload = () => {
-			this.imageReady = true;
-		}
-	}
-}
-
-//____________________________________________________________________
 //#region HANDLE AUTOCLICK
 var autoclickCreate = true; 
 
