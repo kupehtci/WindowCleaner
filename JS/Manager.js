@@ -14,6 +14,8 @@ class Manager{
         this.moneyEarnFinishWindow = 100; 
         this.moneyEarnMultiplier = 1.0000; 
         
+        this.initialTime = new Date().getTime();
+        this.nowTime = new Date().getTime() - this.initialTime; 
 
         //TIME CONTROL VARS 
         /**
@@ -23,12 +25,12 @@ class Manager{
         this.timeToRespawnDirt = 2000;
         this.damageToDirt = 0; 
 
-        this.autoclickTimeC1 = 3100;
-        this.autoclickTimeC2 = 3100;
-        this.autoclickTimeC3 = 3100;
-        this.autoclickTimeR1 = 3100;
-        this.autoclickTimeR2 = 3100;
-        this.autoclickTimeR3 = 3100;
+        this.autoclickTimeC1 = 5100;
+        this.autoclickTimeC2 = 5100;
+        this.autoclickTimeC3 = 5100;
+        this.autoclickTimeR1 = 5100;
+        this.autoclickTimeR2 = 5100;
+        this.autoclickTimeR3 = 5100;
 
         
         //OPTION BOXES
@@ -80,6 +82,15 @@ class Manager{
         ctx.fillStyle = "black";
         ctx.font = "20px Arial";
         ctx.fillText("Total Money Earned: " + this.totalMoneyEarned + "€", canvas.width - 350, 80);
+
+        this.nowTime = new Date().getTime() - this.initialTime;
+        var days = Math.floor(this.nowTime / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((this.nowTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((this.nowTime % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((this.nowTime % (1000 * 60)) / 1000);
+        ctx.fillStyle = "black";
+        ctx.font = "20px Arial";
+        ctx.fillText("Time pass: " + days + " d " + hours + " h " + minutes + " m " + seconds + " s ", canvas.width - 350, 110);
     
         //render the option boxes
         for(let i = 0; i < this.optionBoxes?.length; i++){
@@ -175,22 +186,22 @@ class Manager{
         let maxTime = 4000;
 
         //UPDATE AUTOCLICK TIMERS with their buy level options
-        this.autoclickTimeC1 = 3100 - (this.optionBoxes[4].level * 100);
+        this.autoclickTimeC1 = 5100 - (this.optionBoxes[4].level * 100);
         this.autoclickTimeC1 = Clamp(this.autoclickTimeC1, minTime, maxTime); 
 
-        this.autoclickTimeC2 = 3100 - (this.optionBoxes[5].level * 100);
+        this.autoclickTimeC2 = 5100 - (this.optionBoxes[5].level * 100);
         this.autoclickTimeC2 = Clamp(this.autoclickTimeC2, minTime, maxTime); 
 
-        this.autoclickTimeC3 = 3100 - (this.optionBoxes[6].level * 100);
+        this.autoclickTimeC3 = 5100 - (this.optionBoxes[6].level * 100);
         this.autoclickTimeC3 = Clamp(this.autoclickTimeC3, minTime, maxTime);
 
-        this.autoclickTimeR1 = 3100 - (this.optionBoxes[1].level * 100);
+        this.autoclickTimeR1 = 5100 - (this.optionBoxes[1].level * 100);
         this.autoclickTimeR1 = Clamp(this.autoclickTimeR1, minTime, maxTime);
 
-        this.autoclickTimeR2 = 3100 - (this.optionBoxes[2].level * 100);
+        this.autoclickTimeR2 = 5100 - (this.optionBoxes[2].level * 100);
         this.autoclickTimeR2 = Clamp(this.autoclickTimeR2, minTime, maxTime);
 
-        this.autoclickTimeR3 = 3100 - (this.optionBoxes[3].level * 100);
+        this.autoclickTimeR3 = 5100 - (this.optionBoxes[3].level * 100);
         this.autoclickTimeR3 = Clamp(this.autoclickTimeR3, minTime, maxTime);
 
         //UPDATE OTHER VARS WITH THE BUY LEVEL OPTIONS

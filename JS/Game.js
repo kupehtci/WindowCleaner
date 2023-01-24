@@ -72,6 +72,7 @@ var windowsR3 = [windows[2], windows[5], windows[8]];
 //Create manager to manage the game, hud, and the shop
 var manager = new Manager();
 
+var roboClean = new RoboClean(450, 20);
 //____________________________________________________________________
 //#region HANDLE AUTOCLICK
 var autoclickCreate = true; 
@@ -312,12 +313,9 @@ function Render(){
 	//Render the score and buy options
 	manager.Render();
 	spray.Render();
-	//Render the time
-
-	//Render the dirt
-	// for(var i = 0; i < dirts.length; i++){
-	// 	dirts[i].Render();
-	// }
+	
+	//Render roboclean
+	roboClean.Render();
 }
 
 function Update(keysDownArray, modifier){
